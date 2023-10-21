@@ -9,6 +9,14 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 //@Config //Tunable using FTC Dashboard, making life 1000x easier @CONFIG IS FOR DASHBOARD!!!
 public class Utility_Constants {
+    //public static final double clawIntakePos = 0.05;
+    //public static final double clawOuttakePos = 0.35;
+
+
+
+
+
+    //REST FROM PREVIOUS YEARS
     /** Ratio of old encoder values to current encoder values (after motor change) */
     public static double PPR_RATIO = 1.95509087;
     /** Speed to set the intake motor to when intaking freight */

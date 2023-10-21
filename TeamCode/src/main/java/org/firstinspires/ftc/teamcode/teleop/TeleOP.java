@@ -6,9 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.util.Mechanisms;
-import org.firstinspires.ftc.teamcode.util.Utility_Constants;
-
 
 @TeleOp
 public class TeleOP extends OpMode {
