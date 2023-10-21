@@ -24,7 +24,23 @@ public class TeleOP extends OpMode {
     public DcMotor highMotor;
     int num = 0;
     int num1 = 0;
-    int num2 = 1;
+    private boolean turnServoB = false;
+
+
+    public void negativeArmPower () {
+        lowMotor.setTargetPosition(100);
+        lowMotor.setPower(-gamepad1.left_trigger);
+        highMotor.setTargetPosition(100);
+        highMotor.setPower(-gamepad1.left_trigger);
+    }
+
+    public void positiveArmPower () {
+        lowMotor.setTargetPosition(200);
+        lowMotor.setPower(gamepad1.left_trigger);
+        highMotor.setTargetPosition(200);
+        highMotor.setPower(gamepad1.left_trigger);
+    }
+
 
     @Override
     public void init() {
@@ -55,6 +71,8 @@ public class TeleOP extends OpMode {
         topClaw = hardwareMap.get(Servo.class, "topClaw");
         bottomClaw = hardwareMap.get(Servo.class, "bottomClaw");
         turnServo = hardwareMap.get(Servo.class, "turnServo");
+        topClaw.resetDeviceConfigurationForOpMode();
+        bottomClaw.resetDeviceConfigurationForOpMode();
     }
     // Declare our motors
     // Make sure your ID's match your configuration
@@ -93,44 +111,46 @@ public class TeleOP extends OpMode {
         //ARM DOWN
 
          */
-        lowMotor.setPower(gamepad1.left_trigger);
-        highMotor.setPower(gamepad1.left_trigger);
-
-        lowMotor.setPower(-(gamepad1.right_trigger));
-        highMotor.setPower(-(gamepad1.right_trigger));
+        negativeArmPower();
+        positiveArmPower();
 
         //CLAWS
         //top
 
-        if (num % 2 == 1) {
-            if (gamepad1.y) {
-                // move to 0 degrees.
-                topClaw.setPosition(0);
-                num += 1;
-            }
-        } else {
-            if (gamepad1.y) {
-                // move to 90 degrees.
-                topClaw.setPosition(0.5);
-                num += 1;
-            }
+        if (gamepad1.y) {
+            // move to 0 degrees.
+            topClaw.setPosition(0);
+            num += 1;
+        }
+        if (gamepad1.x) {
+            // move to 90 degrees.
+            topClaw.setPosition(0.5);
+            num += 1;
         }
         //bottom
-        if (num1 % 2 == 1) {
-            if (gamepad1.x) {
-                // move to 0 degrees.
-                bottomClaw.setPosition(0);
-                num1 += 1;
-            }
-        } else {
-            if (gamepad1.x) {
-                // move to 90 degrees.
-                bottomClaw.setPosition(0.5);
-                num1 += 1;
-            }
+        if (gamepad1.b) {
+            // move to 0 degrees.
+            bottomClaw.setPosition(0);
+            num1 += 1;
         }
+        if (gamepad1.a) {
+            // move to 90 degrees.
+            bottomClaw.setPosition(0.5);
+            num1 += 1;
+        }
+
         //turning servo
-        switch (num2) {
+        if (gamepad1.left_bumper && !turnServoB) {
+            if(turnServo.getPosition()==0) {
+                turnServo.setPosition(1);
+            } else {
+                turnServo.setPosition(0);
+            }
+            turnServoB = true;
+        } else if (!gamepad1.left_bumper) {
+            turnServoB = false;
+        }
+        /*switch (num2) {
             case 1:
                 if (gamepad1.b) {
                     // move to 0 degrees.
@@ -152,7 +172,7 @@ public class TeleOP extends OpMode {
                     num2 = 0;
                 }
                 break;
-        }
+        }*/
 
     }
 }
