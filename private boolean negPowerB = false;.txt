@@ -1,18 +1,18 @@
     private boolean negPowerB = false;
     private boolean posPowerB = false;
-
+// this "10" can be changed to any value, it is x encoder ticks (576 encoder ticks in 360 degrees)
 
     public void negativeArmPower () {
         lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 10);
-        lowMotor.setPower(-0.4);
         highMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
+	lowMotor.setPower(-0.4);
         highMotor.setPower(-0.4);
     }
 
     public void positiveArmPower () {
         lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 10);
-        lowMotor.setPower(0.4);
         highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
+	lowMotor.setPower(0.4);
         highMotor.setPower(0.4);
     }      
 // put this under init()
