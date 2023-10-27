@@ -7,7 +7,29 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.util.Mechanisms;
+import org.firstinspires.ftc.teamcode.util.Preset_State;
 import org.firstinspires.ftc.teamcode.util.Utility_Constants;
+import org.firstinspires.ftc.teamcode.util.TeleOp_State;
+
+//From Previous
+//import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+//Custom enums and classes
+//import org.firstinspires.ftc.Team19567.drive.MecanumDriveCancelable;
+
 
 
 @TeleOp
@@ -26,6 +48,7 @@ public class TeleOP extends OpMode {
     int num1 = 0;
     int num2 = 1;
 
+<<<<<<< Updated upstream
     double frontLeftPower;
     double frontRightPower;
     double backLeftPower;
@@ -98,21 +121,61 @@ public class TeleOP extends OpMode {
         backRightMotor.setPower(backRightPower);
 
     }
+=======
+    private boolean negPowerB = false;
+    private boolean posPowerB = false;
+
+    //From Previous
+    //Variables
+    private double armPos = 0;
+    private double armPower = 1.0;
+    private double releaseServoPos = 0.75;
+    private double acc = Utility_Constants.MAX_SENSITIVITY;
+    private double carouselPower = 0.0;
+    private boolean isSlowmode = false;
+    private boolean isCarouselEngaged = false;
+    private boolean isIntaked = false;
+    private boolean redAlliance = true;
+
+    //Hardware
+    private DcMotor leftDCFront = null;
+    private DcMotor rightDCFront = null;
+    private DcMotor leftDCBack = null;
+    private DcMotor rightDCBack = null;
+    private DcMotorEx armDC = null;
+    private Servo releaseServo = null;
+    private Servo balanceServo = null;
+    private TouchSensor limitSwitch = null;
+    private DistanceSensor distanceSensor = null;
+    private RevBlinkinLedDriver blinkin = null;
+    private AnalogInput forceSensor = null;
+
+    private Mechanisms mechanisms = null;
+
+    private Preset_State presetState = Preset_State.NO_PRESET;
+    private TeleOp_State currentState = TeleOp_State.DRIVER_CONTROL;
+
+>>>>>>> Stashed changes
 
     public void negativeArmPower () {
-        lowMotor.setTargetPosition(100);
-        lowMotor.setPower(-gamepad1.left_trigger);
-        highMotor.setTargetPosition(100);
-        highMotor.setPower(-gamepad1.left_trigger);
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
+        lowMotor.setPower(-0.4);
+        highMotor.setPower(-0.4);
     }
 
     public void positiveArmPower () {
-        lowMotor.setTargetPosition(200);
-        lowMotor.setPower(gamepad1.left_trigger);
-        highMotor.setTargetPosition(200);
-        highMotor.setPower(gamepad1.left_trigger);
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
+        lowMotor.setPower(0.4);
+        highMotor.setPower(0.4);
     }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     @Override
     public void init() {
         //MECANUM
@@ -135,6 +198,7 @@ public class TeleOP extends OpMode {
         lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         highMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+<<<<<<< Updated upstream
         lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -143,6 +207,13 @@ public class TeleOP extends OpMode {
 
         lowMotor.setTargetPosition(0);
         highMotor.setTargetPosition(0);
+=======
+        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+>>>>>>> Stashed changes
 
         lowMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -151,6 +222,13 @@ public class TeleOP extends OpMode {
         topClaw = hardwareMap.get(Servo.class, "topClaw");
         bottomClaw = hardwareMap.get(Servo.class, "bottomClaw");
         turnServo = hardwareMap.get(Servo.class, "turnServo");
+<<<<<<< Updated upstream
+=======
+        topClaw.resetDeviceConfigurationForOpMode();
+        bottomClaw.resetDeviceConfigurationForOpMode();
+
+        mechanisms = new Mechanisms(hardwareMap,telemetry);
+>>>>>>> Stashed changes
     }
     // Declare our motors
     // Make sure your ID's match your configuration
@@ -183,7 +261,7 @@ public class TeleOP extends OpMode {
 
         //ARM
         //ARM UP
-        /*if(gamepad1.left_bumper) {
+        /* if(gamepad1.left_bumper) {
             lowMotor.setPower(1);
             highMotor.setPower(1);
         }
@@ -191,9 +269,9 @@ public class TeleOP extends OpMode {
         if(gamepad1.right_bumper) {
             lowMotor.setPower(1);
         }
-        //ARM DOWN
 
          */
+<<<<<<< Updated upstream
 
         /*
         lowMotor.setPower(gamepad1.left_trigger);
@@ -220,6 +298,39 @@ public class TeleOP extends OpMode {
                 topClaw.setPosition(0.5);
                 num += 1;
             }
+=======
+        //ARM DOWN
+
+        /* if (gamepad2.left_bumper && !negPowerB) {
+            negativeArmPower();
+            negPowerB = true;
+        } else if (!gamepad2.left_bumper) {
+            negPowerB = false;
+        }
+
+        if (gamepad2.right_bumper && !posPowerB) {
+            positiveArmPower();
+            posPowerB = true;
+        } else if (!gamepad2.right_bumper) {
+            posPowerB = false;
+        }
+
+         */
+
+        //CLAWS
+        //top
+
+        /*
+        if (gamepad1.y) {
+            // move to 0 degrees.
+            topClaw.setPosition(0);
+            num += 1;
+        }
+        if (gamepad1.x) {
+            // move to 90 degrees.
+            topClaw.setPosition(0.5);
+            num += 1;
+>>>>>>> Stashed changes
         }
         //bottom
         if (num1 % 2 == 1) {
@@ -235,7 +346,10 @@ public class TeleOP extends OpMode {
                 num1 += 1;
             }
         }
+<<<<<<< Updated upstream
         //turning servo
+=======
+>>>>>>> Stashed changes
         switch (num2) {
             case 1:
                 if (gamepad1.b) {
@@ -259,6 +373,119 @@ public class TeleOP extends OpMode {
                 }
                 break;
         }
+
+        //From Previous
+        if(gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) armPos = Range.clip(armPos+gamepad1.left_trigger*8,0,Utility_Constants.MAX_POS);
+        else if(gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) armPos = Range.clip(armPos+gamepad2.left_trigger*8,0,Utility_Constants.MAX_POS);
+        if(gamepad1.left_bumper || gamepad2.left_bumper) armPos = Range.clip(armPos-8,0,Utility_Constants.MAX_POS);
+        if(gamepad1.x || gamepad2.x) {
+            presetState = Preset_State.ALLIANCE_FIRST;
+        }
+        else if(gamepad2.y) {
+            presetState = Preset_State.ALLIANCE_SECOND;
+        }
+        else if(gamepad1.a || gamepad2.a) {
+            presetState = Preset_State.ALLIANCE_THIRD;
+        }
+        else if(gamepad1.b || gamepad2.b) {
+            presetState = Preset_State.GOING_DOWN;
+        }
+
+        if(presetState != Preset_State.NO_PRESET) {
+            mechanisms.moveIntake(0.4);
+        }
+        //PRESET HANDLING
+        switch(presetState) {
+            case ALLIANCE_FIRST: {
+                armPower = Utility_Constants.FIRST_LEVEL_POWER;
+                armPos = Utility_Constants.FIRST_LEVEL_POS;
+                if(armDC.getCurrentPosition() >= Utility_Constants.FIRST_LEVEL_POS-5) {
+                    presetState = Preset_State.NO_PRESET;
+                }
+                break;
+            }
+            case ALLIANCE_SECOND: {
+                armPower = Utility_Constants.SECOND_LEVEL_POWER;
+                armPos = Utility_Constants.SECOND_LEVEL_POS;
+                if(armDC.getCurrentPosition() >= Utility_Constants.SECOND_LEVEL_POS-5) {
+                    presetState = Preset_State.NO_PRESET;
+                }
+                break;
+            }
+            case ALLIANCE_THIRD: {
+                armPower = Utility_Constants.THIRD_LEVEL_POWER;
+                armPos = Utility_Constants.THIRD_LEVEL_POS;
+                if(armDC.getCurrentPosition() >= Utility_Constants.THIRD_LEVEL_POS-5) {
+                    presetState = Preset_State.NO_PRESET;
+                }
+                break;
+            }
+            case GOING_DOWN: {
+                releaseServoPos = Utility_Constants.RELEASE_SERVO_DEFAULT;
+                mechanisms.moveIntake(-0.4);
+                armPower = Utility_Constants.GOING_DOWN_POWER;
+                armPos = 0;
+                if(armDC.getCurrentPosition() <= 5) {
+                    presetState = Preset_State.NO_PRESET;
+                }
+                break;
+            }
+            default: {
+                armPower = 1.0;
+                break;
+            }
+        }
+
+        //SERVOS
+        /*if(gamepad1.dpad_down) releaseServoPos = Range.clip(releaseServoPos-Utility_Constants.SERVO_SENSITIVITY,releaseServo.MIN_POSITION,Utility_Constants.RELEASE_SERVO_DEFAULT);
+        else if(gamepad1.dpad_up || gamepad2.dpad_up) releaseServoPos = Range.clip(releaseServoPos+Utility_Constants.SERVO_SENSITIVITY,releaseServo.MIN_POSITION,Utility_Constants.RELEASE_SERVO_DEFAULT);
+        if(gamepad2.right_bumper) releaseServoPos = 0.64;
+        else if(gamepad2.dpad_down) releaseServoPos = 0.38;
+        if((runtime.milliseconds() >= 85000 && runtime.milliseconds() <= 90000) || (runtime.milliseconds() >= 115000 && runtime.milliseconds() <= 120000)) {
+            blinkinPattern = RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_LAVA_PALETTE;
+            gamepad1.runRumbleEffect(endGameRumble);
+        }
+        else if(presetState != PRESET_STATE.NO_PRESET) blinkinPattern = RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET;
+        else if(distanceSensor.getDistance(DistanceUnit.MM) <= Utility_Constants.DISTANCE_SENSOR_THRESHOLD) blinkinPattern = RevBlinkinLedDriver.BlinkinPattern.BLUE_GREEN;
+        else {
+            blinkinPattern = RevBlinkinLedDriver.BlinkinPattern.RED_ORANGE;
+        }
+        if(distanceSensor.getDistance(DistanceUnit.MM) <= Utility_Constants.DISTANCE_SENSOR_THRESHOLD) {
+            if(!isIntaked) {
+                gamepad1.runRumbleEffect(boxSecured);
+                intakeTimeout.reset();
+            }
+            forceSensorTimeout.reset();
+            isIntaked = true;
+            telemetry.addData("Force Sensor","Freight Detected");
+            telemetry.update();
+        } */
+        /* else if(distanceSensor.getDistance(DistanceUnit.MM) <= Utility_Constants.DISTANCE_SENSOR_THRESHOLD) {
+            if(!isIntaked) gamepad1.runRumbleEffect(boxSecured);
+            isIntaked = true;
+            blinkinPattern = RevBlinkinLedDriver.BlinkinPattern.GOLD;
+            telemetry.addData("Distance Sensor","Freight Detected");
+        } */
+        /*else {
+            isIntaked = false;
+        }
+
+        blinkin.setPattern(blinkinPattern); */
+
+        //MOTOR SET POWER
+        armDC.setTargetPosition((int) armPos);
+        armDC.setPower(armPower);
+        releaseServo.setPosition(releaseServoPos);
+        mechanisms.rotateCarousel(carouselPower);
+        mechanisms.maintainBalance();
+
+        //TELEMETRY
+        telemetry.addData("Status", "Looping");
+        //telemetry.addData("Runtime", runtime.toString() + " Milliseconds"); //Display the runtime
+        telemetry.addData("DCMotors", "armDC(%.2f)", armPos);
+        telemetry.addData("Servos","releaseServoPos(%.2f)",releaseServoPos);
+        telemetry.addData("Sensors","forceSensorVoltage(%.2f)",forceSensor.getVoltage());
+        telemetry.update(); //Updates the telemetry
 
     }
 }
