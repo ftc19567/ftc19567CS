@@ -28,11 +28,11 @@
 
 //put this under loop()
 
-	if (gamepad2.left_bumper && !negPowerB) {
+        if (gamepad2.left_bumper && !negPowerB) {
             negativeArmPower();
-            posPowerB = true;
+            negPowerB = true;
         } else if (!gamepad2.left_bumper) {
-            posPowerB = false;
+            negPowerB = false;
         }
 
         if (gamepad2.right_bumper && !posPowerB) {
