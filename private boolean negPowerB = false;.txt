@@ -15,7 +15,16 @@
         highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
         highMotor.setPower(0.4);
     }      
+// put this under init()
 
+        lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 //put this under loop()
 
