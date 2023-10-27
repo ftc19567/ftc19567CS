@@ -1,0 +1,34 @@
+    private boolean negPowerB = false;
+    private boolean posPowerB = false;
+
+
+    public void negativeArmPower () {
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 10);
+        lowMotor.setPower(-0.4);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
+        highMotor.setPower(-0.4);
+    }
+
+    public void positiveArmPower () {
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 10);
+        lowMotor.setPower(0.4);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
+        highMotor.setPower(0.4);
+    }      
+
+
+//put this under loop()
+
+	if (gamepad2.left_bumper && !negPowerB) {
+            negativeArmPower();
+            posPowerB = true;
+        } else if (!gamepad2.left_bumper) {
+            posPowerB = false;
+        }
+
+        if (gamepad2.right_bumper && !posPowerB) {
+            positiveArmPower();
+            posPowerB = true;
+        } else if (!gamepad2.right_bumper) {
+            posPowerB = false;
+        }
