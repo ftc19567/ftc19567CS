@@ -1,0 +1,43 @@
+    private boolean negPowerB = false;
+    private boolean posPowerB = false;
+// this "10" can be changed to any value, it is x encoder ticks (576 encoder ticks in 360 degrees)
+
+    public void negativeArmPower () {
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
+	lowMotor.setPower(-0.4);
+        highMotor.setPower(-0.4);
+    }
+
+    public void positiveArmPower () {
+        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
+	lowMotor.setPower(0.4);
+        highMotor.setPower(0.4);
+    }      
+// put this under init()
+
+        lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+//put this under loop()
+
+        if (gamepad2.left_bumper && !negPowerB) {
+            negativeArmPower();
+            negPowerB = true;
+        } else if (!gamepad2.left_bumper) {
+            negPowerB = false;
+        }
+
+        if (gamepad2.right_bumper && !posPowerB) {
+            positiveArmPower();
+            posPowerB = true;
+        } else if (!gamepad2.right_bumper) {
+            posPowerB = false;
+        }
