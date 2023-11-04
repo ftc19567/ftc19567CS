@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
+import org.firstinspires.ftc.teamcode.mechanisms.Intake;
 
 
 @TeleOp
@@ -22,6 +23,11 @@ public class TeleOP extends OpMode {
     private Servo bottomClaw;
     private Servo turnServo;
     private Arm arm;
+
+    private Intake intake;
+    private boolean intakeRB = false;
+    private boolean intakeUB = false;
+
     private boolean turnServoB = false;
     private boolean negPowerB = false;
     private boolean posPowerB = false;
@@ -30,6 +36,8 @@ public class TeleOP extends OpMode {
     private boolean xclawB = false;
 
     private boolean liftArm = false;
+
+
 
 
 
@@ -172,6 +180,29 @@ public class TeleOP extends OpMode {
         } else if (!gamepad1.left_bumper) {
             turnServoB = false;
         }
+
+        //intake
+        intake = new Intake(hardwareMap, telemetry);
+
+        //intake recive
+        if (gamepad1.a && !intakeRB) {
+            intake.rollingIntake("false", "true");
+            intakeRB = true;
+        } else if (!gamepad1.a) {
+            intake.rollingIntake("false", "false");
+        }
+
+        //intake sits it out
+
+        if (gamepad1.b && !intakeUB) {
+            intake.rollingIntake("NULL", "reverse");
+            intakeUB = true;
+        } else if (!gamepad1.b) {
+            intake.rollingIntake("NULL", "false");
+            intakeUB = false;
+        }
+
+
 
     }
 }
