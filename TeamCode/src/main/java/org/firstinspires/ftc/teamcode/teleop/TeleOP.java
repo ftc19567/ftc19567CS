@@ -3,12 +3,15 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.mechanisms.Arm;
+
 
 @TeleOp
-public class TeleopHomevI extends OpMode {
+public class TeleOP extends OpMode {
 
 
     private DcMotor frontLeftMotor;
@@ -18,12 +21,7 @@ public class TeleopHomevI extends OpMode {
     private Servo topClaw;
     private Servo bottomClaw;
     private Servo turnServo;
-
-
-    public DcMotor lowMotor;
-    public DcMotor highMotor;
-    int num = 0;
-    int num1 = 0;
+    private Arm arm;
     private boolean turnServoB = false;
     private boolean negPowerB = false;
     private boolean posPowerB = false;
@@ -31,27 +29,7 @@ public class TeleopHomevI extends OpMode {
     private boolean yclawB = false;
     private boolean xclawB = false;
 
-
-    public void negativeArmPower () {
-        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 100);
-        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 100);
-        lowMotor.setPower(-0.8);
-        highMotor.setPower(-0.8);
-        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void positiveArmPower () {
-
-        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 100);
-        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 100);
-        lowMotor.setPower(0.8);
-        highMotor.setPower(0.8);
-        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-    }
+    private boolean liftArm = false;
 
 
 
@@ -74,7 +52,8 @@ public class TeleopHomevI extends OpMode {
 
 
         //ARM
-        lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
+        arm = new Arm(hardwareMap, telemetry);
+        /*lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
         highMotor = hardwareMap.get(DcMotor.class, "highMotor");
 
         lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -86,6 +65,7 @@ public class TeleopHomevI extends OpMode {
 
         lowMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+         */
 
         //CLAW
         topClaw = hardwareMap.get(Servo.class, "topClaw");
@@ -93,6 +73,13 @@ public class TeleopHomevI extends OpMode {
         turnServo = hardwareMap.get(Servo.class, "turnServo");
         topClaw.resetDeviceConfigurationForOpMode();
         bottomClaw.resetDeviceConfigurationForOpMode();
+
+        //TURNING SERVO
+        turnServo.setPosition(0);
+
+        //Claws
+        topClaw.setPosition(0);
+        bottomClaw.setPosition(0);
 
 
     }
@@ -121,36 +108,39 @@ public class TeleopHomevI extends OpMode {
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
 
+        /*telemetry.addData("highMotor", arm.highGetPosition());
+        telemetry.addData("lowMotor", arm.lowGetPosition());
+         */
+        telemetry.update();
 
 
         //ARM
-        //ARM UP
-        /*if(gamepad1.left_bumper) {
-            lowMotor.setPower(1);
-            highMotor.setPower(1);
+        if (gamepad1.right_bumper && !liftArm) {
+            if(arm.highGetPosition()<=200) {
+                arm.setPosition(1, 1280);
+            } else {
+                arm.setPosition(1, 0);
+            }
+            liftArm = true;
+        } else if (!gamepad1.right_bumper) {
+            liftArm = false;
         }
-        //SLOW UP
-        if(gamepad1.right_bumper) {
-            lowMotor.setPower(1);
-        }
-        //ARM DOWN
-
-         */
 
 
         if (gamepad1.b) {
-            negativeArmPower();
+            Arm.negativeArmPower();
         }
 
         if (gamepad1.a) {
-            positiveArmPower();
+            Arm.positiveArmPower();
         }
+
         //CLAWS
         //top
 
         if (gamepad1.y && !yclawB) {
             if(topClaw.getPosition()==0) {
-                topClaw.setPosition(0.3);
+                topClaw.setPosition(0.12);
             } else {
                 topClaw.setPosition(0);
             }
@@ -161,7 +151,7 @@ public class TeleopHomevI extends OpMode {
 
         if (gamepad1.x && !xclawB) {
             if(bottomClaw.getPosition()==0) {
-                bottomClaw.setPosition(0.3);
+                bottomClaw.setPosition(0.175);
             } else {
                 bottomClaw.setPosition(0);
             }
@@ -170,30 +160,6 @@ public class TeleopHomevI extends OpMode {
             xclawB = false;
         }
 
-/*
-        if (gamepad1.y) {
-            // move to 0 degrees.
-            topClaw.setPosition(0);
-            num += 1;
-        }
-        if (gamepad1.x) {
-            // move to 90 degrees.
-            topClaw.setPosition(0.5);
-            num += 1;
-        }
-        //bottom
-        if (gamepad1.b) {
-            // move to 0 degrees.
-            bottomClaw.setPosition(0);
-            num1 += 1;
-        }
-        if (gamepad1.a) {
-            // move to 90 degrees.
-            bottomClaw.setPosition(0.5);
-            num1 += 1;
-        }
-
- */
 
         //turning servo
         if (gamepad1.left_bumper && !turnServoB) {
@@ -206,31 +172,6 @@ public class TeleopHomevI extends OpMode {
         } else if (!gamepad1.left_bumper) {
             turnServoB = false;
         }
-
-
-        /*switch (num2) {
-            case 1:
-                if (gamepad1.b) {
-                    // move to 0 degrees.
-                    turnServo.setPosition(0);
-                    num2 += 1;
-                }
-                break;
-            case 2:
-                if (gamepad1.b) {
-                    // move to 90 degrees.
-                    turnServo.setPosition(0.5);
-                    num2 += 1;
-                }
-                break;
-            case 3:
-                if (gamepad1.b) {
-                    // move to 180 degrees.
-                    turnServo.setPosition(1);
-                    num2 = 0;
-                }
-                break;
-        }*/
 
     }
 }
