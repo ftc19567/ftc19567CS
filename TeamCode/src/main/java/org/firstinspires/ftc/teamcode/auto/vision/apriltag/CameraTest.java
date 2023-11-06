@@ -57,10 +57,7 @@ public class CameraTest extends LinearOpMode
     // UNITS ARE METERS
     double tagsize = 0.166;
 
-    int left = 1;
-    int middle = 2;
-    int right = 3;
-
+    int ID_TAG_OF_INTEREST = 2;
 
     AprilTagDetection tagOfInterest = null;
 
@@ -103,7 +100,7 @@ public class CameraTest extends LinearOpMode
 
                 for(AprilTagDetection tag : currentDetections)
                 {
-                    if(tag.id == left || tag.id == middle || tag.id == right)
+                    if(tag.id == ID_TAG_OF_INTEREST)
                     {
                         tagOfInterest = tag;
                         tagFound = true;
@@ -171,12 +168,13 @@ public class CameraTest extends LinearOpMode
         }
 
         /* Actually do something useful */
-        if (tagOfInterest.id == left) {
-            telemetry.addData("facing", "left");
-        } else if (tagOfInterest == null || tagOfInterest.id == middle) {
-            telemetry.addData("facing", "middle");
-        } else if (tagOfInterest.id == right) {
-            telemetry.addData("facing", "right");
+        if(tagOfInterest == null)
+        {
+            telemetry.addData("TagDetected?", "N");
+        }
+        else
+        {
+            telemetry.addData("TagDetected?", "Y");
         }
 
 
