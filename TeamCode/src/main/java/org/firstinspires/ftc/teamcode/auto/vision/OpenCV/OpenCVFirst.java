@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.auto.vision;
+package org.firstinspires.ftc.teamcode.auto.vision.OpenCV;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,7 +17,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 
 @TeleOp(name="OpenCVTest")
-public class OpenCV extends OpMode {
+public class OpenCVFirst extends OpMode {
 
     OpenCvWebcam camera = null;
 
@@ -33,7 +32,7 @@ public class OpenCV extends OpMode {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                camera.startStreaming(640, 360, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -43,12 +42,13 @@ public class OpenCV extends OpMode {
         });
 
     }
+
     @Override
     public void loop() {
 
     }
 
-    public class examplePipeline extends OpenCvPipeline{
+    public class examplePipeline extends OpenCvPipeline {
         Mat YCBCR = new Mat();
         Mat leftCrop;
         Mat middleCrop;
@@ -62,11 +62,10 @@ public class OpenCV extends OpMode {
         public Mat processFrame(Mat input) {
 
             Imgproc.cvtColor(input, YCBCR, Imgproc.COLOR_RGB2YCrCb);
-            telemetry.addLine("pipeline running");
 
-            Rect leftRect = new Rect(1, 1, 213, 359);
-            Rect middleRect = new Rect(214, 1, 214, 359);
-            Rect rightRect = new Rect(429, 1, 213, 359);
+            Rect leftRect = new Rect(1, 1, 426, 719);
+            Rect middleRect = new Rect(427, 1, 425, 719);
+            Rect rightRect = new Rect(852, 1, 426, 719);
 
             input.copyTo(outPut);
             Imgproc.rectangle(outPut, leftRect, rectColor, 2);
@@ -89,17 +88,22 @@ public class OpenCV extends OpMode {
             middleavgfin = middleavg.val[0];
             rightavgfin = rightavg.val[0];
 
+            telemetry.addLine("leftavgfin" + leftavgfin);
+            telemetry.addLine("middleavgfin" + middleavgfin);
+            telemetry.addLine("rightavgfin" + rightavgfin);
+
             if (leftavgfin > middleavgfin && leftavgfin > rightavgfin) {
                 telemetry.addLine("left");
-            } else if (middleavgfin > leftavgfin && middleavgfin > rightavgfin) {
-                telemetry.addLine("middle");
-            } else {
+            } else if (rightavgfin > leftavgfin && rightavgfin > middleavgfin) {
                 telemetry.addLine("right");
+            } else {
+                telemetry.addLine("middle");
+
+
             }
+            telemetry.update();
+            return (outPut);
 
-
-
-            return(outPut);
 
         }
     }
