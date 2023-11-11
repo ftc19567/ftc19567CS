@@ -30,9 +30,6 @@ public class TeleOP extends OpMode {
     private boolean liftArm = false;
 
 
-
-
-
     @Override
     public void init() {
 
