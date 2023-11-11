@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Arm implements MechanismTemplate{
-    static DcMotorEx lowMotor;
-    static DcMotorEx highMotor;
+    static DcMotor lowMotor;
+    static DcMotor highMotor;
     Telemetry telemetry;
 
     //private VoltageSensor voltageSensor;
@@ -26,14 +26,15 @@ public class Arm implements MechanismTemplate{
     public void setMode(HardwareMap hwMap, Telemetry telemetry) {
         this.telemetry = telemetry;
         lowMotor = hwMap.get(DcMotorEx.class, "lowMotor");
-        lowMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lowMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lowMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         lowMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        highMotor = hwMap.get(DcMotorEx.class, "lowMotor");
-        highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        highMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        highMotor = hwMap.get(DcMotorEx.class, "highMotor");
         highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        highMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         highMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //voltageSensor = hwMap.voltageSensor.iterator().next();
@@ -42,9 +43,9 @@ public class Arm implements MechanismTemplate{
     }
 
     public static void setPosition(double pow, int pos){
-        lowMotor.setPower(pow);
-        lowMotor.setTargetPosition(Range.clip(pos,0,2000));
-        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //lowMotor.setPower(pow);
+        //lowMotor.setTargetPosition(Range.clip(pos,0,2000));
+        //lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         highMotor.setPower(pow);
         highMotor.setTargetPosition(Range.clip(pos,0,2000));
         highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -82,6 +83,7 @@ public class Arm implements MechanismTemplate{
         highMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
+
     }
 
     public void stop(){
@@ -90,22 +92,21 @@ public class Arm implements MechanismTemplate{
     }
 
     public static void negativeArmPower() {
-        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() - 50);
         highMotor.setTargetPosition(highMotor.getCurrentPosition() - 50);
-        lowMotor.setPower(-0.8);
+        //lowMotor.setTargetPosition(highMotor.getCurrentPosition() - 50);
+        //lowMotor.setPower(-0.8);
         highMotor.setPower(-0.8);
-        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public static void positiveArmPower() {
-
-        lowMotor.setTargetPosition(lowMotor.getCurrentPosition() + 50);
         highMotor.setTargetPosition(highMotor.getCurrentPosition() + 50);
-        lowMotor.setPower(0.8);
+        //lowMotor.setTargetPosition(highMotor.getCurrentPosition() + 50);
+        //lowMotor.setPower(0.8);
         highMotor.setPower(0.8);
-        lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //lowMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
 

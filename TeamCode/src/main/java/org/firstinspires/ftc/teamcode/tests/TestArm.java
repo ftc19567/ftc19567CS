@@ -5,13 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.mechanisms.Arm;
+
 @TeleOp(name="TestArm")
 public class TestArm extends OpMode{
 
     public DcMotor lowMotor;
     public DcMotor highMotor;
     String direction = "neutral";
+    private boolean armDown = false;
+    private boolean armUp = false;
 
+    private Arm arm;
 
 
 
@@ -69,6 +74,7 @@ public class TestArm extends OpMode{
 
     @Override
     public void init() {
+        arm = new Arm(hardwareMap, telemetry);
         lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
         highMotor = hardwareMap.get(DcMotor.class, "highMotor");
 
@@ -81,6 +87,9 @@ public class TestArm extends OpMode{
 
     @Override
     public void loop() {
+        telemetry.addData("high motor", highMotor.getCurrentPosition());
+        telemetry.update();
+
 
         /*
         if (gamepad1.a) {
@@ -98,12 +107,22 @@ public class TestArm extends OpMode{
             highMotorRRun();
         }
 
-        */
+        *///ARM
 
-        lowMotor.setPower(gamepad1.left_stick_y);
-        highMotor.setPower(gamepad1.left_stick_y);
 
-        lowMotor.setPower(gamepad1.right_stick_y);
+        if (gamepad1.a && !armDown) {
+            Arm.negativeArmPower();
+            armDown = true;
+        } else if (!gamepad1.a) {
+            armDown = false;
+        }
+
+        if (gamepad1.y && !armUp) {
+            Arm.positiveArmPower();
+            armUp = false;
+        } else if (!gamepad1.y) {
+            armUp = false;
+        }
 
 
     }

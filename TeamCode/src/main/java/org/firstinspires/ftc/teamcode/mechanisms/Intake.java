@@ -11,7 +11,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Intake implements MechanismTemplate{
     static DcMotorEx intakeMotor;
-    static Servo dumperServo;
 
     Telemetry telemetry;
 
@@ -26,28 +25,13 @@ public class Intake implements MechanismTemplate{
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intakeMotor = hwMap.get(DcMotorEx.class, "intakeMotor");
-        dumperServo = hwMap.get(Servo.class, "dumperServo");
+
 
 
     }
-    public void rollingIntake (String open, String on) {
+    public void rollingIntake (double forward, double backwards) {
 
-
-        if (on == "true") {
-            intakeMotor.setPower(1);
-        } else if(on == "false") {
-            intakeMotor.setPower(0);
-        } else if (on == "reverse") {
-            intakeMotor.setPower(-1);
-        }
-
-        if (open == "true") {
-            dumperServo.setPosition(1);
-        } else if (open == "false") {
-            dumperServo.setPosition(0);
-        } else {
-            //does nothing
-        }
-
+        intakeMotor.setPower(forward*2);
+        intakeMotor.setPower(-(backwards*2));
     }
 }

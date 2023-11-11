@@ -19,21 +19,13 @@ public class TeleOP extends OpMode {
     private DcMotor backLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
-    private Servo topClaw;
-    private Servo bottomClaw;
     private Servo turnServo;
     private Arm arm;
-
     private Intake intake;
-    private boolean intakeRB = false;
-    private boolean intakeUB = false;
+    private boolean armUp = false;
+    private boolean armDown = false;
 
     private boolean turnServoB = false;
-    private boolean negPowerB = false;
-    private boolean posPowerB = false;
-
-    private boolean yclawB = false;
-    private boolean xclawB = false;
 
     private boolean liftArm = false;
 
@@ -75,20 +67,10 @@ public class TeleOP extends OpMode {
         highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
          */
 
-        //CLAW
-        topClaw = hardwareMap.get(Servo.class, "topClaw");
-        bottomClaw = hardwareMap.get(Servo.class, "bottomClaw");
         turnServo = hardwareMap.get(Servo.class, "turnServo");
-        topClaw.resetDeviceConfigurationForOpMode();
-        bottomClaw.resetDeviceConfigurationForOpMode();
 
         //TURNING SERVO
-        turnServo.setPosition(0);
-
-        //Claws
-        topClaw.setPosition(0);
-        bottomClaw.setPosition(0);
-
+        turnServo.setPosition(0.8);
 
     }
     // Declare our motors
@@ -124,10 +106,34 @@ public class TeleOP extends OpMode {
 
         //ARM
         if (gamepad1.right_bumper && !liftArm) {
-            if(arm.highGetPosition()<=200) {
-                arm.setPosition(1, 1280);
+            if (arm.highGetPosition() <= 1000) {
+                turnServo.setPosition(1);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                arm.setPosition(1, 1500);
+                try {
+                    Thread.sleep(1600);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.4);
             } else {
-                arm.setPosition(1, 0);
+                turnServo.setPosition(1);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                arm.setPosition(1, -16);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.8);
             }
             liftArm = true;
         } else if (!gamepad1.right_bumper) {
@@ -135,74 +141,41 @@ public class TeleOP extends OpMode {
         }
 
 
-        if (gamepad1.b) {
+        if (gamepad1.a && !armDown) {
             Arm.negativeArmPower();
+            armDown = true;
+        } else if (!gamepad1.a) {
+            armDown = false;
         }
 
-        if (gamepad1.a) {
+        if (gamepad1.y && !armUp) {
             Arm.positiveArmPower();
-        }
-
-        //CLAWS
-        //top
-
-        if (gamepad1.y && !yclawB) {
-            if(topClaw.getPosition()==0) {
-                topClaw.setPosition(0.12);
-            } else {
-                topClaw.setPosition(0);
-            }
-            yclawB = true;
+            armUp = false;
         } else if (!gamepad1.y) {
-            yclawB = false;
+            armUp = false;
         }
 
-        if (gamepad1.x && !xclawB) {
-            if(bottomClaw.getPosition()==0) {
-                bottomClaw.setPosition(0.175);
-            } else {
-                bottomClaw.setPosition(0);
-            }
-            xclawB = true;
-        } else if (!gamepad1.x) {
-            xclawB = false;
-        }
-
-
+/*
         //turning servo
         if (gamepad1.left_bumper && !turnServoB) {
-            if(turnServo.getPosition()==0) {
+            if (turnServo.getPosition() == 0.9) {
                 turnServo.setPosition(1);
+            } else if (turnServo.getPosition() == 1){
+                turnServo.setPosition(0.5);
             } else {
-                turnServo.setPosition(0);
+                turnServo.setPosition(0.9);
             }
             turnServoB = true;
         } else if (!gamepad1.left_bumper) {
             turnServoB = false;
         }
 
+ */
+
         //intake
         intake = new Intake(hardwareMap, telemetry);
 
-        //intake recive
-        if (gamepad1.a && !intakeRB) {
-            intake.rollingIntake("false", "true");
-            intakeRB = true;
-        } else if (!gamepad1.a) {
-            intake.rollingIntake("false", "false");
-        }
-
-        //intake sits it out
-
-        if (gamepad1.b && !intakeUB) {
-            intake.rollingIntake("NULL", "reverse");
-            intakeUB = true;
-        } else if (!gamepad1.b) {
-            intake.rollingIntake("NULL", "false");
-            intakeUB = false;
-        }
-
-
+        intake.rollingIntake(gamepad1.right_trigger, gamepad1.left_trigger);
 
     }
 }
