@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
@@ -12,7 +10,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.Intake;
 
 
 @TeleOp
-public class TeleOP extends OpMode {
+public class TeleOPMeet1 extends OpMode {
 
 
     private DcMotor frontLeftMotor;
@@ -25,9 +23,9 @@ public class TeleOP extends OpMode {
     private boolean armUp = false;
     private boolean armDown = false;
 
-    private boolean turnServoB = false;
+    private boolean autoTurnServo = true;
 
-    private boolean liftArm = false;
+    private double servoPosCalc = 1;
 
 
     @Override
@@ -50,6 +48,7 @@ public class TeleOP extends OpMode {
 
         //ARM
         arm = new Arm(hardwareMap, telemetry);
+
         /*lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
         highMotor = hardwareMap.get(DcMotor.class, "highMotor");
 
@@ -69,6 +68,10 @@ public class TeleOP extends OpMode {
         //TURNING SERVO
         turnServo.setPosition(0.8);
 
+        telemetry.addData("Encoder :", arm.lowGetPosition());
+
+        telemetry.update();
+
     }
     // Declare our motors
     // Make sure your ID's match your configuration
@@ -79,7 +82,7 @@ public class TeleOP extends OpMode {
         //Mecanum
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = gamepad1.right_stick_x;
+        double rx = gamepad1.right_stick_x * 0.5;
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
@@ -102,77 +105,87 @@ public class TeleOP extends OpMode {
 
 
         //ARM
-        if (gamepad1.right_bumper && !liftArm) {
-            if (arm.highGetPosition() <= 1000) {
-                turnServo.setPosition(1);
+
+        if (gamepad1.a && !armUp) {
+            turnServo.setPosition(1);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            arm.setPosition(1, 1500);
+            try {
+                Thread.sleep(1600);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            turnServo.setPosition(0.4);
+            armUp = true;
+            } else if (!gamepad1.a) {armUp = false;}
+
+       /*
+        turnServo.setPosition(1);
                 try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                arm.setPosition(1, 1500);
-                try {
-                    Thread.sleep(1600);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                turnServo.setPosition(0.4);
-            } else {
-                turnServo.setPosition(1);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        Thread.sleep(500);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
                 arm.setPosition(1, -16);
                 try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+        Thread.sleep(2000);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
                 turnServo.setPosition(0.8);
-            }
-            liftArm = true;
-        } else if (!gamepad1.right_bumper) {
-            liftArm = false;
-        }
+
+        */
 
 
-        if (gamepad1.a && !armDown) {
+        if (gamepad1.right_bumper) {
             Arm.negativeArmPower();
-            armDown = true;
-        } else if (!gamepad1.a) {
-            armDown = false;
+
         }
 
-        if (gamepad1.y && !armUp) {
+
+        if (gamepad1.right_trigger > 0) {
             Arm.positiveArmPower();
-            armUp = false;
-        } else if (!gamepad1.y) {
-            armUp = false;
+
         }
 
-/*
+
+
         //turning servo
-        if (gamepad1.left_bumper && !turnServoB) {
-            if (turnServo.getPosition() == 0.9) {
-                turnServo.setPosition(1);
-            } else if (turnServo.getPosition() == 1){
-                turnServo.setPosition(0.5);
-            } else {
-                turnServo.setPosition(0.9);
-            }
-            turnServoB = true;
-        } else if (!gamepad1.left_bumper) {
-            turnServoB = false;
+        if (arm.lowGetPosition() > 1000) {
+            servoPosCalc = 0.8 - (arm.lowGetPosition()/1600 * 0.35);
         }
 
- */
+        if (gamepad1.y) {autoTurnServo = true;}
+
+        if (gamepad1.b) {autoTurnServo = false;}
+
+        if (!autoTurnServo) {
+            if (gamepad1.dpad_up) {
+                turnServo.setPosition(turnServo.getPosition() - 0.1);
+            }
+
+            if (gamepad1.dpad_down) {
+                turnServo.setPosition(turnServo.getPosition() + 0.1);
+            }
+        }  else {
+            turnServo.setPosition(servoPosCalc);
+        }
+
+
+
 
         //intake
         intake = new Intake(hardwareMap, telemetry);
-
         intake.rollingIntake(gamepad1.right_trigger);
+
+        //ejects pixels
+        if (gamepad1.right_bumper) {
+            intake.ejection(0.5);
+        }
 
     }
 }

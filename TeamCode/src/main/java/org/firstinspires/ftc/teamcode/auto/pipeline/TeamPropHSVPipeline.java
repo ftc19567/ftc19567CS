@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.pipeline;
+package org.firstinspires.ftc.teamcode.auto.vision.OpenCV;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
@@ -12,6 +12,17 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class TeamPropHSVPipeline extends OpenCvPipeline {
     Telemetry telemetry; // Info
     Mat mat = new Mat(); // Matrix of the Camera (essentially the camera image)
+
+    //enum to return location
+
+    public enum Location {
+        LEFT,
+        MIDDLE,
+        RIGHT,
+        NONE_DETECTED
+    }
+
+    private static Location location;
 
 
     // Creating ROIs for the camera (Regions of Interest) to see where the object is located.
@@ -38,7 +49,7 @@ public class TeamPropHSVPipeline extends OpenCvPipeline {
     Scalar rectColor = new Scalar(255.0, 0.0, 0.0);
 
 
-    public TeamPropHSVPipeline (Telemetry t) { telemetry = t;} //Passing telemetry as a constructor
+    public TeamPropHSVPipeline(Telemetry t) { telemetry = t;} //Passing telemetry as a constructor
 
     @Override
     public Mat processFrame(Mat input) {
@@ -86,17 +97,21 @@ public class TeamPropHSVPipeline extends OpenCvPipeline {
         telemetry.addData("Right percentage: ", rightPercent + "%");
 
         if (leftPercent == middlePercent && leftPercent == rightPercent) {
+
+            location = Location.NONE_DETECTED;
             telemetry.addData("Side: ", "None Detected");
         } else if (leftPercent > middlePercent && leftPercent > rightPercent) {
+            location = Location.LEFT;
             telemetry.addData("Side: ", "Left");
         } else if (rightPercent > leftPercent && rightPercent > middlePercent) {
+            location = Location.RIGHT;
             telemetry.addData("Side: ", "Right");
         } else {
+            location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
 
 
         }
-
         //so telemetry won't clutter
         telemetry.update();
 
@@ -105,5 +120,8 @@ public class TeamPropHSVPipeline extends OpenCvPipeline {
         //return the mat to the ui
         return mat;
 
+    }
+    public static Location getLocation() {
+        return location;
     }
 }

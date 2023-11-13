@@ -29,9 +29,14 @@ public class Intake implements MechanismTemplate{
 
 
     }
-    public void rollingIntake (double forward, double backwards) {
+    public void rollingIntake (double forward) {
+        if (forward > 0) {
+            intakeMotor.setPower(forward*2);
+        }
 
-        intakeMotor.setPower(forward*2);
-        intakeMotor.setPower(-(backwards*2));
+    }
+
+    public void ejection(double speed) {
+        intakeMotor.setPower(-speed);
     }
 }
