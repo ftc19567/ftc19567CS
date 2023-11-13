@@ -141,13 +141,13 @@ public class TeleOPMeet1 extends OpMode {
         */
 
 
-        if (gamepad1.right_bumper) {
+        if (gamepad1.left_bumper) {
             Arm.negativeArmPower();
 
         }
 
 
-        if (gamepad1.right_trigger > 0) {
+        if (gamepad1.left_trigger > 0) {
             Arm.positiveArmPower();
 
         }
