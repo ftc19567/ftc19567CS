@@ -112,7 +112,13 @@ public class TeleOP extends OpMode {
                 }
                 arm.setPosition(1, 1500);
                 try {
-                    Thread.sleep(1600);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.7);
+                try {
+                    Thread.sleep(1200);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -124,7 +130,7 @@ public class TeleOP extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(1, -16);
+                arm.setPosition(1, -10);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

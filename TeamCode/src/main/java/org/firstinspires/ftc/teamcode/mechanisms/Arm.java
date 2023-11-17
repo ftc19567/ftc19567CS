@@ -92,8 +92,8 @@ public class Arm implements MechanismTemplate{
     }
 
     public static void negativeArmPower() {
-        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
-        lowMotor.setTargetPosition(highMotor.getCurrentPosition() - 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() - 50);
+        lowMotor.setTargetPosition(highMotor.getCurrentPosition() - 50);
         lowMotor.setPower(-0.8);
         highMotor.setPower(-0.8);
         highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -101,8 +101,8 @@ public class Arm implements MechanismTemplate{
     }
 
     public static void positiveArmPower() {
-        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
-        lowMotor.setTargetPosition(highMotor.getCurrentPosition() + 10);
+        highMotor.setTargetPosition(highMotor.getCurrentPosition() + 50);
+        lowMotor.setTargetPosition(highMotor.getCurrentPosition() + 50);
         lowMotor.setPower(0.8);
         highMotor.setPower(0.8);
         highMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

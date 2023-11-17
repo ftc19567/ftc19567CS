@@ -20,8 +20,10 @@ public class TeleOPMeet1 extends OpMode {
     private Servo turnServo;
     private Arm arm;
     private Intake intake;
-    private boolean armUp = false;
-    private boolean armDown = false;
+    private boolean liftArm = false;
+    private boolean boxUp = false;
+    private boolean boxDown = false;
+    private boolean reset = false;
 
     private boolean autoTurnServo = true;
 
@@ -105,7 +107,49 @@ public class TeleOPMeet1 extends OpMode {
 
 
         //ARM
-
+        if (gamepad1.a && !liftArm) {
+            if (arm.highGetPosition() <= 1000) {
+                turnServo.setPosition(1);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                arm.setPosition(0.6, 1700);
+                try {
+                    Thread.sleep(700);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.31);
+            } else {
+                turnServo.setPosition(1);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                arm.setPosition(1, -10);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.8);
+            }
+            liftArm = true;
+        } else if (!gamepad1.right_bumper) {
+            liftArm = false;
+        }
+/*
+        //RESET ARM ENCODER
+        if (gamepad1.b && !reset) {
+            arm.resetPosition();
+            reset = true;
+        } else if (!gamepad1.b) {
+            reset = false;
+        }
+/*
         if (gamepad1.a && !armUp) {
             turnServo.setPosition(1);
             try {
@@ -147,13 +191,28 @@ public class TeleOPMeet1 extends OpMode {
         }
 
 
-        if (gamepad1.left_trigger > 0) {
+        if (gamepad1.left_trigger > 0.5) {
             Arm.positiveArmPower();
 
         }
 
+        //Turning Servo
+        if (gamepad1.dpad_down && !boxDown) {
+            turnServo.setPosition(turnServo.getPosition() + 0.1);
+            boxDown = true;
+        } else if (!gamepad1.dpad_down) {
+            boxDown = false;
+        }
+        if (gamepad1.dpad_up && !boxUp) {
+            turnServo.setPosition(turnServo.getPosition() - 0.1);
+            boxUp = true;
+        } else if (!gamepad1.dpad_up) {
+            boxUp = false;
+        }
 
 
+
+/*
         //turning servo
         if (arm.lowGetPosition() > 1000) {
             servoPosCalc = 0.8 - (arm.lowGetPosition()/1600 * 0.35);
@@ -174,6 +233,7 @@ public class TeleOPMeet1 extends OpMode {
         }  else {
             turnServo.setPosition(servoPosCalc);
         }
+        */
 
 
 
