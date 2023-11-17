@@ -183,9 +183,7 @@ public class TeleOPMeet1 extends OpMode {
         intake.rollingIntake(gamepad1.right_trigger);
 
         //ejects pixels
-        if (gamepad1.right_bumper) {
-            intake.ejection(0.5);
-        }
+        intake.ejection((gamepad1.right_bumper));
 
     }
 }
