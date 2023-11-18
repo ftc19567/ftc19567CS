@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -66,11 +65,11 @@ public class Arm implements MechanismTemplate{
     } */
 
     //public double getVelocity() {return verticalMotor.getVelocity(); }
-    public int lowGetPosition() {
+    public static int lowGetPosition() {
         return lowMotor.getTargetPosition();
     }
 
-    public int highGetPosition() {
+    public static int highGetPosition() {
         return highMotor.getTargetPosition();
     }
 

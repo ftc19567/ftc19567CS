@@ -18,8 +18,8 @@ public class TeleOPMeet1 extends OpMode {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private Servo turnServo;
+    private Servo planeServo;
     private Arm arm;
-
     private DcMotor lowMotor, highMotor;
     private Intake intake;
     private boolean liftArmUp = false;
@@ -27,6 +27,9 @@ public class TeleOPMeet1 extends OpMode {
     private boolean boxUp = false;
     private boolean boxDown = false;
     private boolean reset = false;
+    private boolean plane = false;
+    private boolean hanging = false;
+    private boolean release = false;
 
     private boolean autoTurnServo = true;
 
@@ -71,15 +74,17 @@ public class TeleOPMeet1 extends OpMode {
         highMotor.setDirection(DcMotorSimple.Direction.FORWARD);
          */
 
+        //TURNING SERVO
         turnServo = hardwareMap.get(Servo.class, "turnServo");
 
-        //TURNING SERVO
         turnServo.setPosition(0.8);
         Arm.setPosition(1, 6);
 
         telemetry.addData("Encoder :", arm.lowGetPosition());
 
         telemetry.update();
+        //AIRPLANE
+        planeServo = hardwareMap.get(Servo.class, "planeServo");
 
     }
     // Declare our motors
@@ -270,6 +275,43 @@ public class TeleOPMeet1 extends OpMode {
 
         //ejects pixels
         intake.ejection((gamepad2.right_bumper));
+
+
+        //airplane
+        if (gamepad2.x && !plane) {
+            turnServo.setPosition(1);
+            //TUNE VALUE ABOVE TO GET RIGHT VALUE FOR RELEASED SERVO POSITION
+            plane = true;
+        } else if (!gamepad1.x) {
+            plane = false;
+        }
+
+
+        //hanging
+        if (gamepad2.dpad_left && !hanging) {
+            int i = 1;
+            if(i == 1) {
+                Arm.setPosition(1, 1000);
+                //TUNE ABOVE VALUE FOR WHEN ARM IS FULLY STRAIGHT
+                turnServo.setPosition(0.5);
+                //TUNE VALUE FOR STRAIGHT BOX
+            } else {
+                Arm.setPosition(1, Arm.highGetPosition() - 200);
+                //TUNE CAN DECREASE OR INCREASE DEPENDING ON HOW FAST
+            }
+            hanging = true;
+        } else if (!gamepad1.dpad_left) {
+            hanging = false;
+        }
+
+        //release turning servo
+        if (gamepad2.dpad_right && !release) {
+            turnServo.getController().pwmDisable();
+            release = true;
+        } else if (!gamepad1.dpad_right) {
+            release = false;
+        }
+
 
 
         telemetry.addData("ServoPos : ", turnServo.getPosition());
