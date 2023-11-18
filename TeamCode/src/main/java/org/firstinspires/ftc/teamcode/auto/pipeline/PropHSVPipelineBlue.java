@@ -101,10 +101,10 @@ public class PropHSVPipelineBlue extends OpenCvPipeline {
 
             location = Location.NONE_DETECTED;
             telemetry.addData("Side: ", "None Detected");
-        } else if (leftPercent > middlePercent && leftPercent > rightPercent) {
+        } else if (leftPercent > middlePercent && leftPercent > 6) {
             location = Location.LEFT;
             telemetry.addData("Side: ", "Left");
-        } else if (middlePercent > leftPercent && middlePercent > rightPercent) {
+        } else if (middlePercent > leftPercent && middlePercent > 6) {
             location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
         } else {

@@ -8,8 +8,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 public class valueTuner extends OpenCvPipeline {
 
-    public Scalar lower = new Scalar(86.4, 96.3, 110.5);
-    public Scalar upper = new Scalar(137.4, 255, 255);
+    public Scalar lower = new Scalar(141.7, 96.3, 45.3);
+    public Scalar upper = new Scalar(184.2, 255, 255);
 
     /*
      * A good practice when typing EOCV pipelines is

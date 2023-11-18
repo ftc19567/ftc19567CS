@@ -18,7 +18,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="RedAllianceClose")
+@Autonomous(name="RedAllianceCloseAuto")
 public class RedAllianceClose extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
@@ -72,29 +72,45 @@ public class RedAllianceClose extends LinearOpMode {
                     .forward(49)
                     .build();
 
-            Trajectory middle2 = drive.trajectoryBuilder(backward.end())
-                    .splineToLinearHeading(new Pose2d(-40, -40, Math.toRadians(0)), Math.toRadians(90))
+            Trajectory leftforward = drive.trajectoryBuilder(backward.end())
+                    .forward(-35)
+                    .build();
+
+            Trajectory leftspike = drive.trajectoryBuilder(backward.end())
+                    .forward(-32)
                     .build();
 
             Trajectory board = drive.trajectoryBuilder(new Pose2d())
-                    .forward(-90)
+                    .forward(-75)
+                    .build();
+
+            Trajectory middleboarddrive = drive.trajectoryBuilder(new Pose2d())
+                    .forward(-65)
                     .build();
 
             Trajectory boardstrafesmall = drive.trajectoryBuilder(board.end())
+                    .strafeLeft(47)
+                    .build();
+
+            Trajectory middleforward = drive.trajectoryBuilder(new Pose2d())
+                    .forward(-70)
+                    .build();
+
+
+            Trajectory mediumoardstrafe = drive.trajectoryBuilder(board.end())
                     .strafeRight(65)
                     .build();
 
-            Trajectory boardstrafemedium = drive.trajectoryBuilder(board.end())
-                    .strafeRight(71)
-                    .build();
-
-            Trajectory boardstrafelarge = drive.trajectoryBuilder(board.end())
-                    .strafeRight(77)
-                    .build();
-
             Trajectory dropPixel = drive.trajectoryBuilder(board.end())
-                    .forward(-30)
+                    .forward(-20)
                     .build();
+
+            Trajectory leftboardstrafe = drive.trajectoryBuilder(board.end())
+                    .strafeRight(47)
+                    .build();
+
+
+
 
 
 
@@ -106,27 +122,30 @@ public class RedAllianceClose extends LinearOpMode {
             switch(PropHSVPipelineRed.getLocation()) {
 
                 case LEFT:
+                    drive.followTrajectory(leftforward);
                     drive.turn(Math.toRadians(70));
-                    drive.followTrajectory(forward);
+                    drive.followTrajectory(leftspike);
                     drive.followTrajectory(backward);
-                    drive.turn(Math.toRadians(-130));
+                    drive.turn(Math.toRadians(-200));
                     drive.followTrajectory(board);
-                    drive.followTrajectory(boardstrafelarge);
+                    drive.turn(Math.toRadians(-70));
+                    drive.followTrajectory(leftboardstrafe);
+                    drive.turn(Math.toRadians(-30));
 
                     //arm
                     turnServo.setPosition(1);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.8, 1600);
+                    arm.setPosition(0.7, 1826);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.36);
+                    turnServo.setPosition(0.25);
 
                     drive.followTrajectory(dropPixel);
 
@@ -149,25 +168,26 @@ public class RedAllianceClose extends LinearOpMode {
 
 
                 case MIDDLE:
-                    drive.followTrajectory(forward);
+                    drive.followTrajectory(middleforward);
                     drive.followTrajectory(backward);
-                    drive.turn(Math.toRadians(180));
-                    drive.followTrajectory(board);
-                    drive.followTrajectory(boardstrafemedium);
+                    drive.turn(Math.toRadians(-230));
+                    drive.followTrajectory(middleboarddrive);
+                    drive.followTrajectory(mediumoardstrafe);
+
 
                     turnServo.setPosition(1);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.8, 1600);
+                    arm.setPosition(0.7, 1826);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.36);
+                    turnServo.setPosition(0.25);
 
                     drive.followTrajectory(dropPixel);
 

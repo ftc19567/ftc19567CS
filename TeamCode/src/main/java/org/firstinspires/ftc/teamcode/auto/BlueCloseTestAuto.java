@@ -71,16 +71,24 @@ public class BlueCloseTestAuto extends LinearOpMode {
                     .forward(49)
                     .build();
 
-            Trajectory middle2 = drive.trajectoryBuilder(backward.end())
-                    .splineToLinearHeading(new Pose2d(-40, -40, Math.toRadians(0)), Math.toRadians(90))
+            Trajectory rightforward = drive.trajectoryBuilder(backward.end())
+                    .forward(-40)
+                    .build();
+
+            Trajectory rightSpike = drive.trajectoryBuilder(backward.end())
+                    .forward(-29)
                     .build();
 
             Trajectory board = drive.trajectoryBuilder(new Pose2d())
+                    .forward(-73)
+                    .build();
+
+            Trajectory middleboarddrive = drive.trajectoryBuilder(new Pose2d())
                     .forward(-80)
                     .build();
 
             Trajectory boardstrafesmall = drive.trajectoryBuilder(board.end())
-                    .strafeLeft(45)
+                    .strafeLeft(47)
                     .build();
 
             Trajectory middleforward = drive.trajectoryBuilder(new Pose2d())
@@ -88,12 +96,16 @@ public class BlueCloseTestAuto extends LinearOpMode {
                     .build();
 
 
-            Trajectory boardstrafelarge = drive.trajectoryBuilder(board.end())
-                    .strafeLeft(59)
+            Trajectory mediumoardstrafe = drive.trajectoryBuilder(board.end())
+                    .strafeLeft(20)
                     .build();
 
             Trajectory dropPixel = drive.trajectoryBuilder(board.end())
                     .forward(-20)
+                    .build();
+
+            Trajectory rightboardstrafe = drive.trajectoryBuilder(board.end())
+                    .strafeLeft(30)
                     .build();
 
 
@@ -112,7 +124,7 @@ public class BlueCloseTestAuto extends LinearOpMode {
                     drive.turn(Math.toRadians(140));
                     drive.followTrajectory(board);
                     drive.followTrajectory(boardstrafesmall);
-                    drive.turn(Math.toRadians(-50));
+                    drive.turn(Math.toRadians(-40));
 
                     //arm
                     turnServo.setPosition(1);
@@ -121,13 +133,13 @@ public class BlueCloseTestAuto extends LinearOpMode {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1700);
+                    arm.setPosition(0.7, 1826);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.31);
+                    turnServo.setPosition(0.25);
 
                     drive.followTrajectory(dropPixel);
 
@@ -150,26 +162,27 @@ public class BlueCloseTestAuto extends LinearOpMode {
 
 
                 case MIDDLE:
-                    drive.turn(Math.toRadians(-35));
+                    drive.turn(Math.toRadians(-40));
                     drive.followTrajectory(middleforward);
                     drive.followTrajectory(backward);
                     drive.turn(Math.toRadians(140));
-                    drive.followTrajectory(board);
-                    drive.turn(Math.toRadians(50));
+                    drive.followTrajectory(middleboarddrive);
+                    drive.followTrajectory(mediumoardstrafe);
+                    drive.turn(Math.toRadians(60));
 
                     turnServo.setPosition(1);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.8, 1600);
+                    arm.setPosition(0.7, 1826);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.345);
+                    turnServo.setPosition(0.25);
 
                     drive.followTrajectory(dropPixel);
 
@@ -190,26 +203,28 @@ public class BlueCloseTestAuto extends LinearOpMode {
                     break;
 
                 case RIGHT:
-                    drive.turn(Math.toRadians(-80));
-                    drive.followTrajectory(forward);
+                    drive.followTrajectory(rightforward);
+                    drive.turn(Math.toRadians(-125));
+                    drive.followTrajectory(rightSpike);
                     drive.followTrajectory(backward);
-                    drive.turn(Math.toRadians(130));
+                    drive.turn(Math.toRadians(200));
                     drive.followTrajectory(board);
-                    drive.followTrajectory(boardstrafelarge);
+                    drive.followTrajectory(rightboardstrafe);
+                    drive.turn(Math.toRadians(50));
 
                     turnServo.setPosition(1);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.8, 1600);
+                    arm.setPosition(0.7, 1826);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.36);
+                    turnServo.setPosition(0.25);
 
                     drive.followTrajectory(dropPixel);
 
