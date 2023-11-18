@@ -9,7 +9,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class TeamPropHSVPipeline extends OpenCvPipeline {
+public class PropHSVPipelineBlue extends OpenCvPipeline {
     Telemetry telemetry; // Info
     Mat mat = new Mat(); // Matrix of the Camera (essentially the camera image)
 
@@ -44,12 +44,13 @@ public class TeamPropHSVPipeline extends OpenCvPipeline {
     // same here. Values can be tuned using eocv sim in valueFinder
     Scalar highHSVBlue = new Scalar (137.4, 255, 255);
 
+
     //Defining colors for the ROI, thhis is just design.
 
     Scalar rectColor = new Scalar(255.0, 0.0, 0.0);
 
 
-    public TeamPropHSVPipeline(Telemetry t) { telemetry = t;} //Passing telemetry as a constructor
+    public PropHSVPipelineBlue(Telemetry t) { telemetry = t;} //Passing telemetry as a constructor
 
     @Override
     public Mat processFrame(Mat input) {
@@ -103,12 +104,12 @@ public class TeamPropHSVPipeline extends OpenCvPipeline {
         } else if (leftPercent > middlePercent && leftPercent > rightPercent) {
             location = Location.LEFT;
             telemetry.addData("Side: ", "Left");
-        } else if (rightPercent > leftPercent && rightPercent > middlePercent) {
-            location = Location.RIGHT;
-            telemetry.addData("Side: ", "Right");
-        } else {
+        } else if (middlePercent > leftPercent && middlePercent > rightPercent) {
             location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
+        } else {
+            location = Location.RIGHT;
+            telemetry.addData("Side: ", "Right");
 
 
         }

@@ -19,8 +19,11 @@ public class TeleOPMeet1 extends OpMode {
     private DcMotor backRightMotor;
     private Servo turnServo;
     private Arm arm;
+
+    private DcMotor lowMotor, highMotor;
     private Intake intake;
-    private boolean liftArm = false;
+    private boolean liftArmUp = false;
+    private boolean liftArmDown = false;
     private boolean boxUp = false;
     private boolean boxDown = false;
     private boolean reset = false;
@@ -46,6 +49,9 @@ public class TeleOPMeet1 extends OpMode {
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
         backRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
+        lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
+        highMotor = hardwareMap.get(DcMotor.class, "highMotor");
+
 
 
         //ARM
@@ -69,6 +75,7 @@ public class TeleOPMeet1 extends OpMode {
 
         //TURNING SERVO
         turnServo.setPosition(0.8);
+        Arm.setPosition(1, 6);
 
         telemetry.addData("Encoder :", arm.lowGetPosition());
 
@@ -107,7 +114,7 @@ public class TeleOPMeet1 extends OpMode {
 
 
         //ARM
-        if (gamepad1.a && !liftArm) {
+        if (gamepad2.a && !liftArmUp) {
             if (arm.highGetPosition() <= 1000) {
                 turnServo.setPosition(1);
                 try {
@@ -115,38 +122,52 @@ public class TeleOPMeet1 extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1700);
+                arm.setPosition(0.6, 1600);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.31);
-            } else {
+                turnServo.setPosition(0.35);
+
+                liftArmUp = true;
+            }
+        }else if (!gamepad2.a) {
+            liftArmUp = false;
+        }
+
+        //LiftArmDown
+
+        if (gamepad2.b & !liftArmDown) {
+            if (arm.highGetPosition() >= 1000) {
+
                 turnServo.setPosition(1);
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(1, -10);
+                arm.setPosition(1, 5);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 turnServo.setPosition(0.8);
+
+                liftArmDown = true;
+
             }
-            liftArm = true;
-        } else if (!gamepad1.right_bumper) {
-            liftArm = false;
+        } else if (!gamepad2.b) {
+            liftArmDown = false;
         }
-/*
+
         //RESET ARM ENCODER
-        if (gamepad1.b && !reset) {
-            arm.resetPosition();
+        if (gamepad1.y && !reset) {
+            lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             reset = true;
-        } else if (!gamepad1.b) {
+        } else if (!gamepad1.y) {
             reset = false;
         }
 /*
@@ -167,7 +188,7 @@ public class TeleOPMeet1 extends OpMode {
             armUp = true;
             } else if (!gamepad1.a) {armUp = false;}
 
-       /*
+
         turnServo.setPosition(1);
                 try {
         Thread.sleep(500);
@@ -185,28 +206,28 @@ public class TeleOPMeet1 extends OpMode {
         */
 
 
-        if (gamepad1.left_bumper) {
+        if (gamepad2.left_bumper) {
             Arm.negativeArmPower();
 
         }
 
 
-        if (gamepad1.left_trigger > 0.5) {
+        if (gamepad2.left_trigger > 0.5) {
             Arm.positiveArmPower();
 
         }
 
         //Turning Servo
-        if (gamepad1.dpad_down && !boxDown) {
-            turnServo.setPosition(turnServo.getPosition() + 0.1);
+        if (gamepad2.dpad_down && !boxDown) {
+            turnServo.setPosition(turnServo.getPosition() + 0.03);
             boxDown = true;
         } else if (!gamepad1.dpad_down) {
             boxDown = false;
         }
-        if (gamepad1.dpad_up && !boxUp) {
-            turnServo.setPosition(turnServo.getPosition() - 0.1);
+        if (gamepad2.dpad_up && !boxUp) {
+            turnServo.setPosition(turnServo.getPosition() - 0.03);
             boxUp = true;
-        } else if (!gamepad1.dpad_up) {
+        } else if (!gamepad2.dpad_up) {
             boxUp = false;
         }
 
@@ -240,10 +261,21 @@ public class TeleOPMeet1 extends OpMode {
 
         //intake
         intake = new Intake(hardwareMap, telemetry);
-        intake.rollingIntake(gamepad1.right_trigger);
+
+        if (gamepad2.right_trigger > 0) {
+            intake.rollingIntake(1);
+        }
+
+
 
         //ejects pixels
-        intake.ejection((gamepad1.right_bumper));
+        intake.ejection((gamepad2.right_bumper));
+
+
+        telemetry.addData("ServoPos : ", turnServo.getPosition());
+        telemetry.addData("ArmPos : ", lowMotor.getCurrentPosition());
+        telemetry.addData("liftUpB : ", liftArmUp);
+        telemetry.addData("liftDownB : ", liftArmDown);
 
     }
 }

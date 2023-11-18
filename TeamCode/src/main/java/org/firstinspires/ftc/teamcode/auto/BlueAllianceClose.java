@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.auto.pipeline.TeamPropHSVPipeline;
+import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
@@ -17,8 +17,8 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="AutoTestTele")
-public class TeamPropTest extends LinearOpMode {
+@Autonomous(name="BlueAllianceClose")
+public class BlueAllianceClose extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
         private Intake intake;
@@ -44,7 +44,7 @@ public class TeamPropTest extends LinearOpMode {
             camera = OpenCvCameraFactory.getInstance()
                     .createWebcam(webcam1, cameraMonitorViewId);
 
-            TeamPropHSVPipeline pipeline = new TeamPropHSVPipeline(telemetry);
+            PropHSVPipelineBlue pipeline = new PropHSVPipelineBlue(telemetry);
 
             camera.setPipeline(pipeline);
             camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -84,11 +84,11 @@ public class TeamPropTest extends LinearOpMode {
                     .build();
 
             Trajectory boardstrafemedium = drive.trajectoryBuilder(board.end())
-                    .strafeLeft(72)
+                    .strafeLeft(71)
                     .build();
 
             Trajectory boardstrafelarge = drive.trajectoryBuilder(board.end())
-                    .strafeLeft(80)
+                    .strafeLeft(76)
                     .build();
 
             Trajectory dropPixel = drive.trajectoryBuilder(board.end())
@@ -102,7 +102,7 @@ public class TeamPropTest extends LinearOpMode {
 
             waitForStart();
 
-            switch(TeamPropHSVPipeline.getLocation()) {
+            switch(PropHSVPipelineBlue.getLocation()) {
 
                 case LEFT:
                     drive.turn(Math.toRadians(70));
@@ -115,17 +115,17 @@ public class TeamPropTest extends LinearOpMode {
                     //arm
                     turnServo.setPosition(1);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.8, 1600);
+                    arm.setPosition(0.6, 1700);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.36);
+                    turnServo.setPosition(0.31);
 
                     drive.followTrajectory(dropPixel);
 
