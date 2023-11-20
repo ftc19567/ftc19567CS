@@ -64,7 +64,7 @@ public class BlueAllianceClose extends LinearOpMode {
 
 
         Trajectory forward = drive.trajectoryBuilder(new Pose2d())
-                .forward(-58)
+                .forward(-52)
                 .build();
 
         Trajectory backward = drive.trajectoryBuilder(forward.end())
@@ -80,15 +80,15 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         Trajectory board = drive.trajectoryBuilder(new Pose2d())
-                .forward(-73)
+                .forward(-57)
                 .build();
 
         Trajectory middleboarddrive = drive.trajectoryBuilder(new Pose2d())
-                .forward(-80)
+                .forward(-90)
                 .build();
 
         Trajectory boardstrafesmall = drive.trajectoryBuilder(board.end())
-                .strafeLeft(47)
+                .strafeLeft(60)
                 .build();
 
         Trajectory middleforward = drive.trajectoryBuilder(new Pose2d())
@@ -105,7 +105,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         Trajectory rightboardstrafe = drive.trajectoryBuilder(board.end())
-                .strafeLeft(37)
+                .strafeLeft(15 )
                 .build();
 
 
@@ -124,7 +124,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 drive.turn(Math.toRadians(140));
                 drive.followTrajectory(board);
                 drive.followTrajectory(boardstrafesmall);
-                drive.turn(Math.toRadians(-40));
+                drive.turn(Math.toRadians(-70));
 
                 //arm
                 turnServo.setPosition(1);
@@ -204,13 +204,13 @@ public class BlueAllianceClose extends LinearOpMode {
 
             case RIGHT:
                 drive.followTrajectory(rightforward);
-                drive.turn(Math.toRadians(-125));
+                drive.turn(Math.toRadians(-115));
                 drive.followTrajectory(rightSpike);
                 drive.followTrajectory(backward);
-                drive.turn(Math.toRadians(200));
+                drive.turn(Math.toRadians(210));
                 drive.followTrajectory(board);
                 drive.followTrajectory(rightboardstrafe);
-                drive.turn(Math.toRadians(60));
+                drive.turn(Math.toRadians(70));
 
                 turnServo.setPosition(1);
                 try {

@@ -29,6 +29,7 @@ public class TeleOPMeet1 extends OpMode {
     private boolean reset = false;
     private boolean plane = false;
     private boolean hanging = false;
+    private boolean hang = false;
     private boolean release = false;
 
     private boolean autoTurnServo = true;
@@ -77,8 +78,8 @@ public class TeleOPMeet1 extends OpMode {
         //TURNING SERVO
         turnServo = hardwareMap.get(Servo.class, "turnServo");
 
-        turnServo.setPosition(0.8);
-        Arm.setPosition(1, 6);
+        turnServo.setPosition(0.7);
+        Arm.setPosition(1, 0);
 
         telemetry.addData("Encoder :", arm.lowGetPosition());
 
@@ -127,13 +128,13 @@ public class TeleOPMeet1 extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1600);
+                arm.setPosition(0.6, 1686);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.35);
+                turnServo.setPosition(0.2);
 
                 liftArmUp = true;
             }
@@ -158,7 +159,7 @@ public class TeleOPMeet1 extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.8);
+                turnServo.setPosition(0.7);
 
                 liftArmDown = true;
 
@@ -206,7 +207,7 @@ public class TeleOPMeet1 extends OpMode {
     } catch (InterruptedException e) {
         throw new RuntimeException(e);
     }
-                turnServo.setPosition(0.8);
+                turnServo.setPosition(0.7);
 
         */
 
@@ -226,7 +227,7 @@ public class TeleOPMeet1 extends OpMode {
         if (gamepad2.dpad_down && !boxDown) {
             turnServo.setPosition(turnServo.getPosition() + 0.03);
             boxDown = true;
-        } else if (!gamepad1.dpad_down) {
+        } else if (!gamepad2.dpad_down) {
             boxDown = false;
         }
         if (gamepad2.dpad_up && !boxUp) {
@@ -241,7 +242,7 @@ public class TeleOPMeet1 extends OpMode {
 /*
         //turning servo
         if (arm.lowGetPosition() > 1000) {
-            servoPosCalc = 0.8 - (arm.lowGetPosition()/1600 * 0.35);
+            servoPosCalc = 0.7 - (arm.lowGetPosition()/1600 * 0.35);
         }
 
         if (gamepad1.y) {autoTurnServo = true;}
@@ -278,39 +279,61 @@ public class TeleOPMeet1 extends OpMode {
 
 
         //airplane
-        if (gamepad2.x && !plane) {
-            turnServo.setPosition(1);
+        if (gamepad1.a && !plane) {
+            planeServo.setPosition(0.5);
             //TUNE VALUE ABOVE TO GET RIGHT VALUE FOR RELEASED SERVO POSITION
             plane = true;
-        } else if (!gamepad1.x) {
+        } else if (!gamepad1.a) {
             plane = false;
         }
 
 
         //hanging
-        if (gamepad2.dpad_left && !hanging) {
+        if (gamepad1.y && !hanging) {
             int i = 1;
             if(i == 1) {
-                Arm.setPosition(1, 1000);
+                turnServo.setPosition(1);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                Arm.setPosition(1, 1100);
                 //TUNE ABOVE VALUE FOR WHEN ARM IS FULLY STRAIGHT
-                turnServo.setPosition(0.5);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                turnServo.setPosition(0.3);
                 //TUNE VALUE FOR STRAIGHT BOX
-            } else {
-                Arm.setPosition(1, Arm.highGetPosition() - 200);
-                //TUNE CAN DECREASE OR INCREASE DEPENDING ON HOW FAST
             }
             hanging = true;
-        } else if (!gamepad1.dpad_left) {
+        } else if (!gamepad1.y) {
             hanging = false;
         }
 
         //release turning servo
-        if (gamepad2.dpad_right && !release) {
+        if (gamepad1.b && !release) {
+            turnServo.setPosition(0.15);
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             turnServo.getController().pwmDisable();
             release = true;
-        } else if (!gamepad1.dpad_right) {
+        } else if (!gamepad1.b) {
             release = false;
         }
+        //hang
+        if (gamepad1.x && !hang) {
+            Arm.setPosition(1, 100);
+            hang = true;
+        } else if (!gamepad1.x) {
+            hang = false;
+        }
+
 
 
 

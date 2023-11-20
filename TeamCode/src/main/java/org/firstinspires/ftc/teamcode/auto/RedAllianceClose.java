@@ -69,7 +69,7 @@ public class RedAllianceClose extends LinearOpMode {
                     .build();
 
             Trajectory backward = drive.trajectoryBuilder(forward.end())
-                    .forward(49)
+                    .forward(45)
                     .build();
 
             Trajectory leftforward = drive.trajectoryBuilder(backward.end())
@@ -77,11 +77,14 @@ public class RedAllianceClose extends LinearOpMode {
                     .build();
 
             Trajectory leftspike = drive.trajectoryBuilder(backward.end())
-                    .forward(-32)
+                    .forward(-50)
                     .build();
 
             Trajectory board = drive.trajectoryBuilder(new Pose2d())
                     .forward(-75)
+                    .build();
+            Trajectory leftboard = drive.trajectoryBuilder(new Pose2d())
+                    .forward(-60)
                     .build();
 
             Trajectory middleboarddrive = drive.trajectoryBuilder(new Pose2d())
@@ -89,11 +92,11 @@ public class RedAllianceClose extends LinearOpMode {
                     .build();
 
             Trajectory boardstrafesmall = drive.trajectoryBuilder(board.end())
-                    .strafeLeft(47)
+                    .strafeLeft(-75)
                     .build();
 
             Trajectory middleforward = drive.trajectoryBuilder(new Pose2d())
-                    .forward(-70)
+                    .forward(-79)
                     .build();
 
 
@@ -102,12 +105,16 @@ public class RedAllianceClose extends LinearOpMode {
                     .build();
 
             Trajectory dropPixel = drive.trajectoryBuilder(board.end())
-                    .forward(-20)
+                    .forward(-48)
                     .build();
 
             Trajectory leftboardstrafe = drive.trajectoryBuilder(board.end())
                     .strafeRight(47)
                     .build();
+
+            Trajectory rightboard = drive.trajectoryBuilder(new Pose2d())
+                            .forward(-53)
+                                    .build();
 
 
 
@@ -123,14 +130,14 @@ public class RedAllianceClose extends LinearOpMode {
 
                 case LEFT:
                     drive.followTrajectory(leftforward);
-                    drive.turn(Math.toRadians(70));
+                    drive.turn(Math.toRadians(87));
                     drive.followTrajectory(leftspike);
                     drive.followTrajectory(backward);
                     drive.turn(Math.toRadians(-200));
-                    drive.followTrajectory(board);
+                    drive.followTrajectory(leftboard);
                     drive.turn(Math.toRadians(-70));
                     drive.followTrajectory(leftboardstrafe);
-                    drive.turn(Math.toRadians(-30));
+                    drive.turn(Math.toRadians(-70));
 
                     //arm
                     turnServo.setPosition(1);
@@ -170,9 +177,10 @@ public class RedAllianceClose extends LinearOpMode {
                 case MIDDLE:
                     drive.followTrajectory(middleforward);
                     drive.followTrajectory(backward);
-                    drive.turn(Math.toRadians(-230));
+                    drive.turn(Math.toRadians(-180));
                     drive.followTrajectory(middleboarddrive);
                     drive.followTrajectory(mediumoardstrafe);
+                    drive.turn(Math.toRadians(-70));
 
 
                     turnServo.setPosition(1);
@@ -211,9 +219,10 @@ public class RedAllianceClose extends LinearOpMode {
                     drive.turn(Math.toRadians(-80));
                     drive.followTrajectory(forward);
                     drive.followTrajectory(backward);
-                    drive.turn(Math.toRadians(180));
-                    drive.followTrajectory(board);
+                    drive.turn(Math.toRadians(-180));
+                    drive.followTrajectory(rightboard);
                     drive.followTrajectory(boardstrafesmall);
+                    drive.turn(Math.toRadians(70));
 
                     turnServo.setPosition(1);
                     try {
@@ -228,6 +237,13 @@ public class RedAllianceClose extends LinearOpMode {
                         throw new RuntimeException(e);
                     }
                     turnServo.setPosition(0.36);
+
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
 
                     drive.followTrajectory(dropPixel);
 
