@@ -63,7 +63,7 @@ public class RedAllianceClose extends LinearOpMode {
 
 
 
-
+            /*
             Trajectory forward = drive.trajectoryBuilder(new Pose2d())
                     .forward(-58)
                     .build();
@@ -117,6 +117,32 @@ public class RedAllianceClose extends LinearOpMode {
                                     .build();
 
 
+             */
+
+            Trajectory rightSpike = drive.trajectoryBuilder(new Pose2d(8,-67, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (24, -40, Math.toRadians(-90)))
+                    //.splineToLinearHeading(new Pose2d(47, -42, Math.toRadians(-90)), Math.toRadians(-90))
+                    .build();
+
+            Trajectory rightYellow = drive.trajectoryBuilder(rightSpike.end())
+                    .splineToLinearHeading(new Pose2d(36, -47, Math.toRadians(0)), Math.toRadians(0))
+                    .build();
+
+
+            Trajectory rightYellowDrop = drive.trajectoryBuilder(rightYellow.end())
+                    .lineToLinearHeading(new Pose2d(47, -42, Math.toRadians(180)))
+                    .build();
+
+            Trajectory rightStrafePark = drive.trajectoryBuilder(rightYellowDrop.end())
+                    .lineToLinearHeading(new Pose2d(47, -61, Math.toRadians(180)))
+                    .build();
+
+            Trajectory rightPark = drive.trajectoryBuilder(rightStrafePark.end())
+                    .back(10)
+                    .build();
+
+
+
 
 
 
@@ -129,6 +155,8 @@ public class RedAllianceClose extends LinearOpMode {
             switch(PropHSVPipelineRed.getLocation()) {
 
                 case LEFT:
+
+                    /*
                     drive.followTrajectory(leftforward);
                     drive.turn(Math.toRadians(87));
                     drive.followTrajectory(leftspike);
@@ -170,11 +198,15 @@ public class RedAllianceClose extends LinearOpMode {
                     }
                     turnServo.setPosition(0.8);
 
+                     */
+
 
                     break;
 
 
                 case MIDDLE:
+
+                    /*
                     drive.followTrajectory(middleforward);
                     drive.followTrajectory(backward);
                     drive.turn(Math.toRadians(-180));
@@ -213,9 +245,20 @@ public class RedAllianceClose extends LinearOpMode {
                     }
                     turnServo.setPosition(0.8);
                     //drive.followTrajectory(middle2);
+
+                     */
+
                     break;
 
                 case RIGHT:
+                    drive.setPoseEstimate(new Pose2d(8, -67, Math.toRadians(-90)));
+
+                    drive.followTrajectory(rightSpike);
+                    drive.followTrajectory(rightYellow);
+                    drive.followTrajectory(rightYellowDrop);
+                    drive.followTrajectory(rightStrafePark);
+                    drive.followTrajectory(rightPark);
+                    /*
                     drive.turn(Math.toRadians(-80));
                     drive.followTrajectory(forward);
                     drive.followTrajectory(backward);
@@ -261,10 +304,11 @@ public class RedAllianceClose extends LinearOpMode {
                     }
                     turnServo.setPosition(0.8);
                 case NONE_DETECTED:
+
+                     */
                     break;
             }
             camera.stopStreaming();
-            telemetry.addLine("COMPLETE");
 
         }
 
