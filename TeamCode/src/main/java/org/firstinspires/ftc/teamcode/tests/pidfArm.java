@@ -15,12 +15,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class pidfArm extends OpMode {
     private PIDController controller;
 
-    public static double p = 0, i = 0, d = 0; //PID as follwes
-    public static double f = 0; //feedforward
+    public static double p = 0.0047, i = 0.1, d = 0.0002; //PID as follwes
+    public static double f = 0.03; //feedforward
 
     public static int target = 0; //to test target pos
 
-    private final double ticks_per_degree = 537.6898396 * 5 / 360; //finding the amount of encoder ticks per degree in 360
+
+    private final double ticks_per_degree = 537.7 * 0.20/ 180.0; //finding the amount of encoder ticks per degree in 180
 
     private DcMotorEx lowMotor, highMotor;
 
@@ -32,9 +33,13 @@ public class pidfArm extends OpMode {
         lowMotor = hardwareMap.get(DcMotorEx.class, "lowMotor");
         highMotor = hardwareMap.get(DcMotorEx.class, "highMotor");
 
+        lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
     }
 
     public void loop() {
+
         controller.setPID(p, i, d);
         int lowArmPos = lowMotor.getCurrentPosition();
         double pid = controller.calculate(lowArmPos, target);
@@ -43,6 +48,7 @@ public class pidfArm extends OpMode {
         double power = pid + ff;
 
         lowMotor.setPower(power);
+        highMotor.setPower(power);
 
         telemetry.addData("pos : ", lowArmPos);
         telemetry.addData("target : ", target);
