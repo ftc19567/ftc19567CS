@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+
+
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
+//import org.firstinspires.ftc.teamcode.mechanisms.ThreadAD;
+//import org.firstinspires.ftc.teamcode.mechanisms.ThreadAU;
 
 
 @TeleOp
@@ -18,9 +23,9 @@ public class TeleOPMeet1 extends OpMode {
     private DcMotor backLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
-    private Servo turnServo;
+    public Servo turnServo;
     private Servo planeServo;
-    private Arm arm;
+    public Arm arm;
     private DcMotor lowMotor, highMotor;
     private Intake intake;
     private boolean liftArmUp = false;
@@ -36,6 +41,12 @@ public class TeleOPMeet1 extends OpMode {
     private boolean autoTurnServo = true;
 
     private double servoPosCalc = 1;
+
+
+    //ThreadAU threadAU = new ThreadAU();
+    //ThreadAD threadAD = new ThreadAD();
+
+
 
 
     @Override
@@ -87,10 +98,15 @@ public class TeleOPMeet1 extends OpMode {
         telemetry.update();
         //AIRPLANE
         planeServo = hardwareMap.get(Servo.class, "planeServo");
+        planeServo.setPosition(planeServo.getPosition());
+
+
 
     }
     // Declare our motors
     // Make sure your ID's match your configuration
+
+
 
     @Override
     public void loop() {
@@ -119,7 +135,6 @@ public class TeleOPMeet1 extends OpMode {
          */
         telemetry.update();
 
-
         //ARM
         if (gamepad2.a && !liftArmUp) {
             if (arm.highGetPosition() <= 1000) {
@@ -129,14 +144,13 @@ public class TeleOPMeet1 extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1686);
+                arm.setPosition(0.6, 1856);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.2);
-
+                turnServo.setPosition(0.11000000000000004);
                 liftArmUp = true;
             }
         }else if (!gamepad2.a) {
@@ -147,7 +161,6 @@ public class TeleOPMeet1 extends OpMode {
 
         if (gamepad2.b & !liftArmDown) {
             if (arm.highGetPosition() >= 1000) {
-
                 turnServo.setPosition(1);
                 try {
                     Thread.sleep(500);
@@ -161,6 +174,7 @@ public class TeleOPMeet1 extends OpMode {
                     throw new RuntimeException(e);
                 }
                 turnServo.setPosition(0.7);
+
 
                 liftArmDown = true;
 
@@ -281,8 +295,8 @@ public class TeleOPMeet1 extends OpMode {
 
         //airplane
         if (gamepad1.a && !plane) {
-            planeServo.setPosition(0.5);
-            //TUNE VALUE ABOVE TO GET RIGHT VALUE FOR RELEASED SERVO POSITION
+            planeServo.setPosition(planeServo.getPosition()+0.5);
+            //TUNE VALUE ABOVE TO GET RIGHT VALUE FOR RELEASED SERVO POSITION22
             plane = true;
         } else if (!gamepad1.a) {
             plane = false;
@@ -295,14 +309,14 @@ public class TeleOPMeet1 extends OpMode {
             if(i == 1) {
                 turnServo.setPosition(1);
                 try {
-                    Thread.sleep(300);
+                    sleep(300);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 Arm.setPosition(1, 1100);
                 //TUNE ABOVE VALUE FOR WHEN ARM IS FULLY STRAIGHT
                 try {
-                    Thread.sleep(500);
+                    sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -318,7 +332,7 @@ public class TeleOPMeet1 extends OpMode {
         if (gamepad1.b && !release) {
             turnServo.setPosition(0.15);
             try {
-                Thread.sleep(150);
+                sleep(150);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
