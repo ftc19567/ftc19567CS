@@ -5,6 +5,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -26,7 +28,7 @@ public class RedAllianceClose extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
         private Intake intake;
-
+        private DcMotor intakeMotor;
         OpenCvCamera camera;
         WebcamName webcam1;
 
@@ -72,8 +74,8 @@ public class RedAllianceClose extends LinearOpMode {
             turnServo = hardwareMap.get(Servo.class, "turnServo");
             arm = new Arm(hardwareMap, telemetry);
 
+            intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
-            turnServo.setPosition(0.8);
 
             int cameraMonitorViewId = hardwareMap.appContext
                     .getResources().getIdentifier("cameraMonitorViewId",
@@ -149,9 +151,28 @@ public class RedAllianceClose extends LinearOpMode {
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
-                    .splineToLinearHeading(new Pose2d(60, -60, Math.toRadians(180)), Math.toRadians(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
+                    //.splineToLinearHeading(new Pose2d(60, -64, Math.toRadians(180)), Math.toRadians(0))
+                    .splineToLinearHeading(new Pose2d(-12.75, -60, Math.toRadians(180)), Math.toRadians(180))
+                    .strafeRight(60)
+                    .splineToLinearHeading(new Pose2d(-58, -12, Math.toRadians(180)), Math.toRadians(90))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> intakeMotor.setPower(1))
+                    .forward(2.5)
+                    //.waitSeconds(2)
+                    .lineToLinearHeading(new Pose2d(45, -10, Math.toRadians(180)))
+                    .waitSeconds(1)
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> intakeMotor.setPower(0))
+                    .splineToLinearHeading(new Pose2d(40, -28, Math.toRadians(180)), Math.toRadians(0))
+                    .waitSeconds(1)
+                    .build();
 
+            TrajectorySequence rightTraj2 = drive.trajectorySequenceBuilder(rightTraj1.end())
+                    .waitSeconds(0.5)
+                    .back(10)
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .forward(10)
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                    .strafeLeft(30)
                     .build();
 
             turnServo.setPosition(1);
@@ -235,6 +256,20 @@ public class RedAllianceClose extends LinearOpMode {
                     }
                     turnServo.setPosition(0.11000000000000004);
                     drive.followTrajectorySequence(rightTraj1);
+                    turnServo.setPosition(1);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    arm.setPosition(0.6, 1856);
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    turnServo.setPosition(0.11000000000000004);
+                    drive.followTrajectorySequence(rightTraj2);
 
                     /*
                     drive.turn(Math.toRadians(-80));
