@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -60,53 +61,62 @@ public class BlueAllianceClose extends LinearOpMode {
             }
         });
 
+        //left
 
-
-
-        Trajectory forward = drive.trajectoryBuilder(new Pose2d())
-                .forward(-52)
-                .build();
-
-        Trajectory backward = drive.trajectoryBuilder(forward.end())
-                .forward(49)
-                .build();
-
-        Trajectory rightforward = drive.trajectoryBuilder(backward.end())
-                .forward(-40)
-                .build();
-
-        Trajectory rightSpike = drive.trajectoryBuilder(backward.end())
-                .forward(-33)
-                .build();
-
-        Trajectory board = drive.trajectoryBuilder(new Pose2d())
-                .forward(-57)
-                .build();
-
-        Trajectory middleboarddrive = drive.trajectoryBuilder(new Pose2d())
-                .forward(-90)
-                .build();
-
-        Trajectory boardstrafesmall = drive.trajectoryBuilder(board.end())
-                .strafeLeft(60)
-                .build();
-
-        Trajectory middleforward = drive.trajectoryBuilder(new Pose2d())
-                .forward(-65)
+        TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d (22, 40, Math.toRadians(90)))
+                .back(-5)
+                .splineToLinearHeading(new Pose2d(40, 42, Math.toRadians(-180)), Math.toRadians(0))
                 .build();
 
 
-        Trajectory mediumoardstrafe = drive.trajectoryBuilder(board.end())
-                .strafeLeft(20)
+        //middle
+
+        TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d (12, 33, Math.toRadians(90)))
+                .back(-5)
+                .splineToLinearHeading(new Pose2d(40, 36, Math.toRadians(-180)), Math.toRadians(0))
                 .build();
 
-        Trajectory dropPixel = drive.trajectoryBuilder(board.end())
-                .forward(-20)
+        //right
+        TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d (7, 34, Math.toRadians(20)))
+                .back(-5)
+                .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
-        Trajectory rightboardstrafe = drive.trajectoryBuilder(board.end())
-                .strafeLeft(15 )
+        //park
+
+        TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
+                .waitSeconds(0.5)
+                .back(10)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .forward(10)
+                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
+
+        TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
+                .waitSeconds(0.5)
+                .back(10)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .forward(10)
+                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .build();
+
+        TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
+                .waitSeconds(0.5)
+                .back(10)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .forward(10)
+                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .build();
+
+
+
+
 
 
 
@@ -118,57 +128,36 @@ public class BlueAllianceClose extends LinearOpMode {
         switch(PropHSVPipelineBlue.getLocation()) {
 
             case LEFT:
-                drive.turn(Math.toRadians(70));
-                drive.followTrajectory(forward);
-                drive.followTrajectory(backward);
-                drive.turn(Math.toRadians(140));
-                drive.followTrajectory(board);
-                drive.followTrajectory(boardstrafesmall);
-                drive.turn(Math.toRadians(-70));
 
-                //arm
+                drive.followTrajectorySequence(leftTraj);
+
+
                 turnServo.setPosition(1);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.7, 1826);
+                arm.setPosition(0.6, 1856);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.25);
+                turnServo.setPosition(0.11000000000000004);
 
-                drive.followTrajectory(dropPixel);
+                drive.followTrajectorySequence(leftTraj1);
 
-                turnServo.setPosition(1);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                arm.setPosition(1, -16);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                turnServo.setPosition(0.8);
 
 
                 break;
+
 
 
             case MIDDLE:
-                drive.turn(Math.toRadians(-40));
-                drive.followTrajectory(middleforward);
-                drive.followTrajectory(backward);
-                drive.turn(Math.toRadians(140));
-                drive.followTrajectory(middleboarddrive);
-                drive.followTrajectory(mediumoardstrafe);
-                drive.turn(Math.toRadians(60));
+
+                drive.followTrajectorySequence(middleTraj);
+
 
                 turnServo.setPosition(1);
                 try {
@@ -176,41 +165,22 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.7, 1826);
+                arm.setPosition(0.6, 1856);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.25);
+                turnServo.setPosition(0.11000000000000004);
 
-                drive.followTrajectory(dropPixel);
+                drive.followTrajectorySequence(middleTraj1);
 
-                turnServo.setPosition(1);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                arm.setPosition(1, -16);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                turnServo.setPosition(0.8);
-                //drive.followTrajectory(middle2);
                 break;
 
             case RIGHT:
-                drive.followTrajectory(rightforward);
-                drive.turn(Math.toRadians(-115));
-                drive.followTrajectory(rightSpike);
-                drive.followTrajectory(backward);
-                drive.turn(Math.toRadians(210));
-                drive.followTrajectory(board);
-                drive.followTrajectory(rightboardstrafe);
-                drive.turn(Math.toRadians(70));
+
+                drive.followTrajectorySequence(rightTraj);
+
 
                 turnServo.setPosition(1);
                 try {
@@ -218,29 +188,20 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.7, 1826);
+                arm.setPosition(0.6, 1856);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.25);
+                turnServo.setPosition(0.11000000000000004);
 
-                drive.followTrajectory(dropPixel);
+                drive.followTrajectorySequence(rightTraj1);
 
-                turnServo.setPosition(1);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                arm.setPosition(1, -16);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                turnServo.setPosition(0.8);
+
+
+                break;
+
             case NONE_DETECTED:
                 break;
         }

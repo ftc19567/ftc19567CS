@@ -151,8 +151,11 @@ public class RedAllianceClose extends LinearOpMode {
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
-                    //.splineToLinearHeading(new Pose2d(60, -64, Math.toRadians(180)), Math.toRadians(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                    .splineToLinearHeading(new Pose2d(60, -64, Math.toRadians(180)), Math.toRadians(0))
+                    .build();
+
+                    /*
                     .splineToLinearHeading(new Pose2d(-12.75, -60, Math.toRadians(180)), Math.toRadians(180))
                     .strafeRight(60)
                     .splineToLinearHeading(new Pose2d(-58, -12, Math.toRadians(180)), Math.toRadians(90))
@@ -164,8 +167,11 @@ public class RedAllianceClose extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> intakeMotor.setPower(0))
                     .splineToLinearHeading(new Pose2d(40, -28, Math.toRadians(180)), Math.toRadians(0))
                     .waitSeconds(1)
-                    .build();
 
+                     */
+
+
+                    /*
             TrajectorySequence rightTraj2 = drive.trajectorySequenceBuilder(rightTraj1.end())
                     .waitSeconds(0.5)
                     .back(10)
@@ -174,6 +180,8 @@ public class RedAllianceClose extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
                     .strafeLeft(30)
                     .build();
+
+                     */
 
             turnServo.setPosition(1);
 
@@ -197,6 +205,8 @@ public class RedAllianceClose extends LinearOpMode {
                     drive.setPoseEstimate(new Pose2d(14.5, -61.5, Math.toRadians(-90)));
 
                     drive.followTrajectorySequence(leftTraj);
+
+
                     turnServo.setPosition(1);
                     try {
                         Thread.sleep(100);
@@ -210,6 +220,8 @@ public class RedAllianceClose extends LinearOpMode {
                         throw new RuntimeException(e);
                     }
                     turnServo.setPosition(0.11000000000000004);
+
+
                     drive.followTrajectorySequence(leftTraj1);
 
 
@@ -221,6 +233,8 @@ public class RedAllianceClose extends LinearOpMode {
                     drive.setPoseEstimate(new Pose2d(14.5, -61.5, Math.toRadians(-90)));
 
                     drive.followTrajectorySequence(middleTraj);
+
+
                     turnServo.setPosition(1);
                     try {
                         Thread.sleep(100);
@@ -234,6 +248,8 @@ public class RedAllianceClose extends LinearOpMode {
                         throw new RuntimeException(e);
                     }
                     turnServo.setPosition(0.11000000000000004);
+
+
                     drive.followTrajectorySequence(middleTraj1);
 
 
@@ -242,6 +258,8 @@ public class RedAllianceClose extends LinearOpMode {
                 case RIGHT:
                     drive.setPoseEstimate(new Pose2d(14.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(rightTraj);
+
+
                     turnServo.setPosition(1);
                     try {
                         Thread.sleep(100);
@@ -255,21 +273,10 @@ public class RedAllianceClose extends LinearOpMode {
                         throw new RuntimeException(e);
                     }
                     turnServo.setPosition(0.11000000000000004);
+
+
                     drive.followTrajectorySequence(rightTraj1);
-                    turnServo.setPosition(1);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    arm.setPosition(0.6, 1856);
-                    try {
-                        Thread.sleep(700);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    turnServo.setPosition(0.11000000000000004);
-                    drive.followTrajectorySequence(rightTraj2);
+
 
                     /*
                     drive.turn(Math.toRadians(-80));
