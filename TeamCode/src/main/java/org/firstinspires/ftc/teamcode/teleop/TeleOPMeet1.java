@@ -138,19 +138,19 @@ public class TeleOPMeet1 extends OpMode {
         //ARM
         if (gamepad2.a && !liftArmUp) {
             if (arm.highGetPosition() <= 1000) {
-                turnServo.setPosition(1);
+                turnServo.setPosition(0.85);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1856);
+                arm.setPosition(0.6, 1750);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.11000000000000004);
+                turnServo.setPosition(0.18);
                 liftArmUp = true;
             }
         }else if (!gamepad2.a) {
