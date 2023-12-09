@@ -24,7 +24,7 @@ public class TeleOPMeet1 extends OpMode {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     public Servo turnServo;
-    private Servo planeServo;
+    public Servo planeServo;
     public Arm arm;
     private DcMotor lowMotor, highMotor;
     private Intake intake;
@@ -90,15 +90,16 @@ public class TeleOPMeet1 extends OpMode {
         //TURNING SERVO
         turnServo = hardwareMap.get(Servo.class, "turnServo");
 
-        turnServo.setPosition(0.7);
+        turnServo.setPosition(0.67);
         Arm.setPosition(1, 0);
 
         telemetry.addData("Encoder :", arm.lowGetPosition());
 
-        telemetry.update();
         //AIRPLANE
         planeServo = hardwareMap.get(Servo.class, "planeServo");
-        planeServo.setPosition(planeServo.getPosition());
+        planeServo.setPosition(1);
+
+        telemetry.update();
 
 
 
@@ -173,7 +174,7 @@ public class TeleOPMeet1 extends OpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.7);
+                turnServo.setPosition(0.67);
 
 
                 liftArmDown = true;
@@ -295,10 +296,9 @@ public class TeleOPMeet1 extends OpMode {
 
         //airplane
         if (gamepad1.a && !plane) {
-            planeServo.setPosition(planeServo.getPosition()+0.5);
-            //TUNE VALUE ABOVE TO GET RIGHT VALUE FOR RELEASED SERVO POSITION22
+            planeServo.setPosition(0.5);
             plane = true;
-        } else if (!gamepad1.a) {
+        } else if (!gamepad1.a){
             plane = false;
         }
 
@@ -356,6 +356,7 @@ public class TeleOPMeet1 extends OpMode {
         telemetry.addData("ArmPos : ", lowMotor.getCurrentPosition());
         telemetry.addData("liftUpB : ", liftArmUp);
         telemetry.addData("liftDownB : ", liftArmDown);
+        telemetry.addData("planeServo Pos : ", planeServo.getPosition());
 
     }
 }

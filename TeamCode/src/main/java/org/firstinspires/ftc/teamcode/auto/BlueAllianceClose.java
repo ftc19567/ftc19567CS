@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto;
 
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -63,7 +64,7 @@ public class BlueAllianceClose extends LinearOpMode {
 
         //left
 
-        TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
+        TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d (22, 40, Math.toRadians(90)))
                 .back(-5)
                 .splineToLinearHeading(new Pose2d(40, 42, Math.toRadians(-180)), Math.toRadians(0))
@@ -72,16 +73,17 @@ public class BlueAllianceClose extends LinearOpMode {
 
         //middle
 
-        TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
+        TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d (12, 33, Math.toRadians(90)))
                 .back(-5)
                 .splineToLinearHeading(new Pose2d(40, 36, Math.toRadians(-180)), Math.toRadians(0))
                 .build();
 
         //right
-        TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, 61.5, Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d (7, 34, Math.toRadians(20)))
-                .back(-5)
+        TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
+                .lineTo(new Vector2d(14, 34))
+                .turn(Math.toRadians(-70))
+                .forward(-5)
                 .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
@@ -128,6 +130,7 @@ public class BlueAllianceClose extends LinearOpMode {
         switch(PropHSVPipelineBlue.getLocation()) {
 
             case LEFT:
+                drive.setPoseEstimate(new Pose2d(9.5, 61.5, Math.toRadians(90)));
 
                 drive.followTrajectorySequence(leftTraj);
 
@@ -155,6 +158,7 @@ public class BlueAllianceClose extends LinearOpMode {
 
 
             case MIDDLE:
+                drive.setPoseEstimate(new Pose2d(9.5, 61.5, Math.toRadians(90)));
 
                 drive.followTrajectorySequence(middleTraj);
 
@@ -178,6 +182,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 break;
 
             case RIGHT:
+                drive.setPoseEstimate(new Pose2d(9.5, 61.5, Math.toRadians(90)));
 
                 drive.followTrajectorySequence(rightTraj);
 
