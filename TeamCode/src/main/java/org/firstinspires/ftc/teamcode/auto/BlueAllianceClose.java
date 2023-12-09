@@ -66,7 +66,7 @@ public class BlueAllianceClose extends LinearOpMode {
 
         TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d (22, 40, Math.toRadians(90)))
-                .back(-5)
+                .back(-7)
                 .splineToLinearHeading(new Pose2d(40, 42, Math.toRadians(-180)), Math.toRadians(0))
                 .build();
 
@@ -91,27 +91,27 @@ public class BlueAllianceClose extends LinearOpMode {
 
         TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                 .waitSeconds(0.5)
-                .back(10)
+                .back(12)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                .forward(10)
+                .forward(12)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
                 .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                 .waitSeconds(0.5)
-                .back(10)
+                .back(12)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                .forward(10)
+                .forward(12)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
                 .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                 .waitSeconds(0.5)
-                .back(10)
+                .back(12)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                .forward(10)
+                .forward(12)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
                 .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
