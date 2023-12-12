@@ -37,7 +37,7 @@ public class BlueAllianceClose extends LinearOpMode {
         arm = new Arm(hardwareMap, telemetry);
 
 
-        turnServo.setPosition(0.8);
+        turnServo.setPosition(1);
 
         int cameraMonitorViewId = hardwareMap.appContext
                 .getResources().getIdentifier("cameraMonitorViewId",
@@ -83,41 +83,61 @@ public class BlueAllianceClose extends LinearOpMode {
         TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineTo(new Vector2d(14, 34))
                 .turn(Math.toRadians(-70))
-                .forward(-5)
+                .forward(-7)
                 .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         //park
 
         TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                .waitSeconds(0.5)
-                .back(12)
+                .waitSeconds(0.3)
+                .back(10)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                .forward(12)
+                .forward(11)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
-                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .strafeTo(new Vector2d(46, 60))
+                //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                .waitSeconds(0.5)
-                .back(12)
+                .waitSeconds(0.3)
+                .back(10)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                .forward(12)
+                .forward(11)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
-                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .strafeTo(new Vector2d(46, 60))
+                //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
+                .waitSeconds(0.3)
+                .back(10)
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .forward(11)
+                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .strafeTo(new Vector2d(46, 60))
+                //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .build();
+
+        //fulls to test
+
+/*
+        TrajectorySequence rightFullTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
+                .lineTo(new Vector2d(14, 34))
+                .turn(Math.toRadians(-70))
+                .forward(-7)
+                .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
+                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(0.6, 1856))
                 .waitSeconds(0.5)
                 .back(12)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(12)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
-                .splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .strafeTo(new Vector2d(46, 60))
                 .build();
 
 
-
+ */
 
 
 
