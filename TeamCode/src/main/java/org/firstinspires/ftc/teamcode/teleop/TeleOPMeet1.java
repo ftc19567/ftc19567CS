@@ -63,6 +63,7 @@ public class TeleOPMeet1 extends OpMode {
         // reverse the left side instead.
         // See the note about this earlier on this page.
         frontRightMotor.setDirection(DcMotor.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
         lowMotor = hardwareMap.get(DcMotor.class, "lowMotor");
