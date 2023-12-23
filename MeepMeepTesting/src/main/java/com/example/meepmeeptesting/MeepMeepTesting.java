@@ -45,5 +45,12 @@ public class MeepMeepTesting {
                                         .back(10)
                                         .build()
                 );
+
+        meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
+                .setDarkMode(true)
+                .setBackgroundAlpha(0.95f)
+                .addEntity(myBot)
+                .start();
+
     }
 }
