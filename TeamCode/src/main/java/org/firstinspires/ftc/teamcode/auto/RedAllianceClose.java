@@ -202,10 +202,10 @@ public class RedAllianceClose extends LinearOpMode {
                     //.build();
 
 
-                    .splineToLinearHeading(new Pose2d(30, -60, Math.toRadians(180)), Math.toRadians(180))
+                    .splineToLinearHeading(new Pose2d(30, -60, Math.toRadians(90)), Math.toRadians(180))
                     .waitSeconds(0.25)
-                    .lineToLinearHeading(new Pose2d(-13, -60, Math.toRadians(180)))
-                    .lineToLinearHeading(new Pose2d(-12.5, -10, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(-13, -60, Math.toRadians(90)))
+                    .lineToLinearHeading(new Pose2d(-12.5, -10, Math.toRadians(90)))
                     .waitSeconds(0.25)
                     .lineToLinearHeading(new Pose2d(-58, -11, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> intakeMotor.setPower(1))
