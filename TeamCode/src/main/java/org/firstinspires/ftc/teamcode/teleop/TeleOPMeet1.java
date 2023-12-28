@@ -152,7 +152,7 @@ public class TeleOPMeet1 extends OpMode {
 
         if (gamepad2.a && !liftArmUp && timerUpB == false && timerUpFB == false) {
             if (arm.highGetPosition() <= 1000) {
-                turnServo.setPosition(0.85);
+                turnServo.setPosition(1);
                 liftArmUp = true;
                 timerUp.reset();
                 timerUpB = true;
@@ -166,7 +166,7 @@ public class TeleOPMeet1 extends OpMode {
             timerUpFB = true;
         }
         if (timerUpFinsh.milliseconds() >= 700 && timerUpFB == true) {
-            turnServo.setPosition(0.18);
+            turnServo.setPosition(0.24);
             timerUpFB = false;
         }
 
