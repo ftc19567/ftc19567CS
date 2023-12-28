@@ -241,7 +241,6 @@ public class BlueCloseTestAuto extends LinearOpMode {
                         throw new RuntimeException(e);
                     }
                     turnServo.setPosition(0.8);
-                case NONE_DETECTED:
                     break;
             }
             camera.stopStreaming();

@@ -226,9 +226,6 @@ public class BlueAllianceClose extends LinearOpMode {
 
 
                 break;
-
-            case NONE_DETECTED:
-                break;
         }
         camera.stopStreaming();
         telemetry.addLine("COMPLETE");

@@ -19,7 +19,6 @@ public class PropHSVPipelineBlue extends OpenCvPipeline {
         LEFT,
         MIDDLE,
         RIGHT,
-        NONE_DETECTED
     }
 
     private static Location location;
@@ -28,14 +27,14 @@ public class PropHSVPipelineBlue extends OpenCvPipeline {
     // Creating ROIs for the camera (Regions of Interest) to see where the object is located.
     static final Rect LEFT_ROI = new Rect (
             new Point(1, 1),
-            new Point(200, 359));
+            new Point(2, 359));
 
     static final Rect MIDDLE_ROI = new Rect (
-            new Point(201, 1),
-            new Point(438, 359));
+            new Point(3, 1),
+            new Point(300, 359));
 
     static final Rect RIGHT_ROI = new Rect (
-            new Point(439, 1),
+            new Point(301, 1),
             new Point(639, 359));
 
 
@@ -97,19 +96,15 @@ public class PropHSVPipelineBlue extends OpenCvPipeline {
         telemetry.addData("Middle percentage: ", middlePercent + "%");
         telemetry.addData("Right percentage: ", rightPercent + "%");
 
-        if (leftPercent == middlePercent && leftPercent == rightPercent) {
-
-            location = Location.NONE_DETECTED;
-            telemetry.addData("Side: ", "None Detected");
-        } else if (leftPercent > middlePercent && leftPercent > 6) {
-            location = Location.LEFT;
-            telemetry.addData("Side: ", "Left");
-        } else if (middlePercent > leftPercent && middlePercent > 6) {
+        if (rightPercent > middlePercent && rightPercent > 4) {
+            location = Location.RIGHT;
+            telemetry.addData("Side: ", "Right");
+        } else if (middlePercent > rightPercent && middlePercent > 4) {
             location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
         } else {
-            location = Location.RIGHT;
-            telemetry.addData("Side: ", "Right");
+            location = Location.LEFT;
+            telemetry.addData("Side: ", "Left");
 
 
         }
