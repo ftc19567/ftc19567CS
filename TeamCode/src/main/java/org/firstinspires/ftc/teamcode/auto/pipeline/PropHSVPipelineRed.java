@@ -28,14 +28,14 @@ public class PropHSVPipelineRed extends OpenCvPipeline {
     // Creating ROIs for the camera (Regions of Interest) to see where the object is located.
     static final Rect LEFT_ROI = new Rect (
             new Point(1, 1),
-            new Point(200, 359));
+            new Point(2, 359));
 
     static final Rect MIDDLE_ROI = new Rect (
-            new Point(201, 1),
-            new Point(438, 359));
+            new Point(3, 1),
+            new Point(300, 359));
 
     static final Rect RIGHT_ROI = new Rect (
-            new Point(439, 1),
+            new Point(301, 1),
             new Point(639, 359));
 
 
