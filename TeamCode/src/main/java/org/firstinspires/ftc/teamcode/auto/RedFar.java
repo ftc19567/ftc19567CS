@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineRed;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
@@ -112,9 +113,8 @@ public class RedFar extends LinearOpMode {
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
                     .forward(7)
-                    //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
                     .strafeLeft(30)
                     .back(10)
                     .build();
@@ -124,26 +124,30 @@ public class RedFar extends LinearOpMode {
 
             //middle
             TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d (-35.5, -33.5, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (-35.5, -32.5, Math.toRadians(-90)))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
                     .back(-5)
                     .lineToLinearHeading(new Pose2d(-58, -35, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> intakeMotor.setPower(1))
-                    .forward(2.5)
-                    .UNSTABLE_addTemporalMarkerOffset(0.5, () -> intakeMotor.setPower(0))
+                    .forward(2, SampleMecanumDrive.getVelocityConstraint(10, 10, DriveConstants.TRACK_WIDTH), SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                     .lineToLinearHeading(new Pose2d(40, -35, Math.toRadians(180)))
+                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.75, () -> intakeMotor.setPower(-1))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> intakeMotor.setPower(0))
                     .waitSeconds(0.25)
-                    .splineToLinearHeading(new Pose2d(40, -36, Math.toRadians(180)), Math.toRadians(0))
+                    .splineToLinearHeading(new Pose2d(40, -34, Math.toRadians(180)), Math.toRadians(0))
                     .waitSeconds(0.25)
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                    .back(10)
+                    .waitSeconds(0.5)
+                    .back(11)
+                    .strafeRight(5, SampleMecanumDrive.getVelocityConstraint(10, 10, DriveConstants.TRACK_WIDTH), SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
-                    .forward(7)
-                    //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
-                    .strafeLeft(22)
-                    .back(10)
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .forward(9)
+                    .strafeRight(17)
+                    .back(12)
                     .build();
 
 
@@ -168,9 +172,8 @@ public class RedFar extends LinearOpMode {
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
                     .forward(7)
-                    //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
                     .strafeLeft(17)
                     .back(10)
                     .build();
@@ -212,7 +215,7 @@ public class RedFar extends LinearOpMode {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.11000000000000004);
+                    turnServo.setPosition(0.18);
 
 
                     drive.followTrajectorySequence(leftTraj1);
@@ -240,7 +243,7 @@ public class RedFar extends LinearOpMode {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.11000000000000004);
+                    turnServo.setPosition(0.18);
 
 
                     drive.followTrajectorySequence(middleTraj1);
@@ -265,7 +268,7 @@ public class RedFar extends LinearOpMode {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.11000000000000004);
+                    turnServo.setPosition(0.24);
 
 
                     drive.followTrajectorySequence(rightTraj1);
