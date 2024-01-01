@@ -74,7 +74,7 @@ public class BlueAllianceClose extends LinearOpMode {
         //middle
 
         TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d (12, 33, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d (12, 32, Math.toRadians(90)))
                 .back(-5)
                 .splineToLinearHeading(new Pose2d(40, 36, Math.toRadians(-180)), Math.toRadians(0))
                 .build();
@@ -84,14 +84,14 @@ public class BlueAllianceClose extends LinearOpMode {
                 .lineTo(new Vector2d(14, 34))
                 .turn(Math.toRadians(-70))
                 .forward(-7)
-                .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(40, 30, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         //park
 
         TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                .waitSeconds(0.3)
-                .back(10)
+                .waitSeconds(0.5)
+                .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
@@ -100,8 +100,8 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                .waitSeconds(0.3)
-                .back(10)
+                .waitSeconds(0.5)
+                .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
@@ -110,8 +110,8 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
-                .waitSeconds(0.3)
-                .back(10)
+                .waitSeconds(0.5)
+                .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)
                 .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
@@ -161,13 +161,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1856);
+                arm.setPosition(0.6, 1860);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.11000000000000004);
+                turnServo.setPosition(0.18);
 
                 drive.followTrajectorySequence(leftTraj1);
 
@@ -189,13 +189,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1856);
+                arm.setPosition(0.6, 1860);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.11000000000000004);
+                turnServo.setPosition(0.18);
 
                 drive.followTrajectorySequence(middleTraj1);
 
@@ -213,13 +213,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1856);
+                arm.setPosition(0.6, 1860);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.11000000000000004);
+                turnServo.setPosition(0.18);
 
                 drive.followTrajectorySequence(rightTraj1);
 

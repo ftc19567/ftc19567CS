@@ -98,13 +98,13 @@ public class RedCloseNoWhite extends LinearOpMode {
             //left
 
             TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, -61.5, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d (7, -34, Math.toRadians(-20)))
+                    .lineToLinearHeading(new Pose2d (6.7, -34, Math.toRadians(-20)))
                     .back(-5)
                     .splineToLinearHeading(new Pose2d(40, -28, Math.toRadians(180)), Math.toRadians(0))
                     .build();
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                    .waitSeconds(0.5)
+                    .waitSeconds(1)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
@@ -117,13 +117,13 @@ public class RedCloseNoWhite extends LinearOpMode {
 
             //middle
             TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, -61.5, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d (12, -33, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (12, -32.5, Math.toRadians(-90)))
                     .back(-5)
                     .splineToLinearHeading(new Pose2d(40, -36, Math.toRadians(180)), Math.toRadians(0))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                    .waitSeconds(0.5)
+                    .waitSeconds(1)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
@@ -136,13 +136,13 @@ public class RedCloseNoWhite extends LinearOpMode {
             //right
 
             TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(14.5, -61.5, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d (20, -40, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (21.5, -40, Math.toRadians(-90)))
                     .back(-5)
                     .splineToLinearHeading(new Pose2d(43, -42, Math.toRadians(180)), Math.toRadians(0))
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
-                    .waitSeconds(0.5)
+                    .waitSeconds(1)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
