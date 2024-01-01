@@ -49,6 +49,8 @@ public class TeleOPMeet1 extends OpMode {
 
     private boolean timerDownB = false;
 
+    private double powerMult = 1;
+
 
 
     ElapsedTime timerUp = new ElapsedTime();
@@ -125,10 +127,22 @@ public class TeleOPMeet1 extends OpMode {
     @Override
     public void loop() {
 
+        if (gamepad1.left_bumper) {
+            powerMult = 0.5;
+            telemetry.addData("Current Speed : ", (powerMult * 100) + "%");
+        }
+
+        if (gamepad1.right_bumper) {
+            powerMult = 1;
+            telemetry.addData("Current Speed : ", (powerMult * 100) + "%");
+        }
+
+
+
         //Mecanum
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = gamepad1.right_stick_x * 0.5;
+        double y = -gamepad1.left_stick_y * powerMult ; // Remember, Y stick value is reversed
+        double x  = gamepad1.left_stick_x * 1.1 * powerMult; // Counteract imperfect strafing
+        double rx = gamepad1.right_stick_x * 0.5 * powerMult;
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
@@ -359,7 +373,7 @@ public class TeleOPMeet1 extends OpMode {
 
 
         //hanging
-        if (gamepad1.y && !hanging) {
+        if (gamepad1.x && !hanging) {
             int i = 1;
             if(i == 1) {
                 turnServo.setPosition(1);
@@ -379,12 +393,12 @@ public class TeleOPMeet1 extends OpMode {
                 //TUNE VALUE FOR STRAIGHT BOX
             }
             hanging = true;
-        } else if (!gamepad1.y) {
+        } else if (!gamepad1.x) {
             hanging = false;
         }
 
         //release turning servo
-        if (gamepad1.b && !release) {
+        if (gamepad1.y && !release) {
             turnServo.setPosition(0.15);
             try {
                 sleep(150);
@@ -393,14 +407,14 @@ public class TeleOPMeet1 extends OpMode {
             }
             turnServo.getController().pwmDisable();
             release = true;
-        } else if (!gamepad1.b) {
+        } else if (!gamepad1.y) {
             release = false;
         }
         //hang
-        if (gamepad1.x && !hang) {
+        if (gamepad1.b && !hang) {
             Arm.setPosition(1, 100);
             hang = true;
-        } else if (!gamepad1.x) {
+        } else if (!gamepad1.b) {
             hang = false;
         }
 
