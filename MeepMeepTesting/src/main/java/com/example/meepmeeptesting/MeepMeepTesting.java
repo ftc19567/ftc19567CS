@@ -35,11 +35,28 @@ public class MeepMeepTesting {
                                         //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
                                         //.strafeLeft(-17)
                                         .strafeLeft(29)
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                                        .lineToLinearHeading(new Pose2d (-35.5, -33.5, Math.toRadians(-90)))
+                                        .lineToLinearHeading(new Pose2d(-57, -35, Math.toRadians(180)))
+
+
+
+                                        .lineToLinearHeading(new Pose2d(-57, -8.5, Math.toRadians(180)))
+                                        .waitSeconds(15)
+                                        .lineToLinearHeading(new Pose2d(40, -8.5, Math.toRadians(180)))
+                                        .lineToLinearHeading(new Pose2d(40, -36, Math.toRadians(180)))
+                                        .waitSeconds(0.25)
+
+                                        .back(10)
+                                       
+                                        .forward(7)
+
+                                        .strafeRight(24)
                                         .back(10)
 
 
 
-                                        .build()
+                                        .build();
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
