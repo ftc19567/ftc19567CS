@@ -18,45 +18,16 @@ public class MeepMeepTesting {
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
                                 drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                                        .lineToLinearHeading(new Pose2d (-45, 36, Math.toRadians(90)))
-                                        .back(-5)
-                                        .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180)))
-                                        .forward(2.5)
-                                        .back(2.5)
-                                        .lineToLinearHeading(new Pose2d(-58, 12, Math.toRadians(180)))
-                                        .splineToLinearHeading(new Pose2d(-40, 12, Math.toRadians(180)), Math.toRadians(0))
+                                        //.lineToLinearHeading(new Pose2d (-24, 36, Math.toRadians(90)))
+                                        .lineToLinearHeading(new Pose2d (-35, 47, Math.toRadians(90)))
+
+                                        .lineToLinearHeading(new Pose2d(-35, 12, Math.toRadians(90)))
+                                        .turn(Math.toRadians(90))
+                                        //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                                         .lineTo(new Vector2d(20, 12))
-                                        .splineToLinearHeading(new Pose2d(43 ,29, Math.toRadians(180)), Math.toRadians(90))
+                                        .splineToLinearHeading(new Pose2d(43 ,28, Math.toRadians(180)), Math.toRadians(90))
 
-
-                                        .back(10)
-                                        .strafeLeft(-10)
-                                        .forward(9)
-                                        //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
-                                        //.strafeLeft(-17)
-                                        .strafeLeft(29)
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d (-35.5, -33.5, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d(-57, -35, Math.toRadians(180)))
-
-
-
-                                        .lineToLinearHeading(new Pose2d(-57, -8.5, Math.toRadians(180)))
-                                        .waitSeconds(15)
-                                        .lineToLinearHeading(new Pose2d(40, -8.5, Math.toRadians(180)))
-                                        .lineToLinearHeading(new Pose2d(40, -36, Math.toRadians(180)))
-                                        .waitSeconds(0.25)
-
-                                        .back(10)
-                                       
-                                        .forward(7)
-
-                                        .strafeRight(24)
-                                        .back(10)
-
-
-
-                                        .build();
+                                        .build()
                 );
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
