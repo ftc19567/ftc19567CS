@@ -130,11 +130,13 @@ public class TeleOPMeet1 extends OpMode {
         if (gamepad1.left_bumper) {
             powerMult = 0.5;
             telemetry.addData("Current Speed : ", (powerMult * 100) + "%");
+            telemetry.update();
         }
 
         if (gamepad1.right_bumper) {
             powerMult = 1;
             telemetry.addData("Current Speed : ", (powerMult * 100) + "%");
+            telemetry.update();
         }
 
 
@@ -254,13 +256,7 @@ public class TeleOPMeet1 extends OpMode {
          */
 
         //RESET ARM ENCODER
-        if (gamepad1.y && !reset) {
-            lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            reset = true;
-        } else if (!gamepad1.y) {
-            reset = false;
-        }
+
 /*
         if (gamepad1.a && !armUp) {
             turnServo.setPosition(1);

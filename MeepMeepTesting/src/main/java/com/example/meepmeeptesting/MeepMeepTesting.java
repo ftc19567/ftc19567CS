@@ -17,19 +17,22 @@ public class MeepMeepTesting {
                 //Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d (-45, -36, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d (-35, -47, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
-                                        .turn(Math.toRadians(-90))
-                                        //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
-                                        .lineTo(new Vector2d(20, -12))
-                                        .splineToLinearHeading(new Pose2d(43 ,-28, Math.toRadians(180)), Math.toRadians(-90))
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+                                        .lineToLinearHeading(new Pose2d (-35, 42, Math.toRadians(90)))
+                                        .turn(Math.toRadians(40))
+                                        .forward(-9.5)
+                                        .back(-9.5)
+                                        .turn(Math.toRadians(-40))
+
+                                        .lineToLinearHeading(new Pose2d(-35, 10, Math.toRadians(90)))
+                                        .turn(Math.toRadians(90))
+                                        .lineTo(new Vector2d(20, 10))
+                                        .splineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)), Math.toRadians(90))
 
                                         .waitSeconds(0.5)
                                         .back(10)
-                                        .forward(9)
-                                        .lineToLinearHeading(new Pose2d(47 ,-10, Math.toRadians(180)))
+                                        .forward(11)
+                                        .lineToLinearHeading(new Pose2d(47 ,10, Math.toRadians(180)))
                                         .back(10)
 
                                         .build()

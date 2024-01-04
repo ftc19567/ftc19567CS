@@ -68,29 +68,32 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
                     .lineToLinearHeading(new Pose2d (-35, 42, Math.toRadians(90)))
-                    .turn(Math.toRadians(48))
-                    .forward(-10)
-                    .back(-10)
-                    .turn(Math.toRadians(-48))
+                    .turn(Math.toRadians(40))
+                    .forward(-9.5)
+                    .back(-9.5)
+                    .turn(Math.toRadians(-40))
 
-                    .lineToLinearHeading(new Pose2d(-35, 12, Math.toRadians(90)))
+                    .lineToLinearHeading(new Pose2d(-35, 10, Math.toRadians(90)))
                     .turn(Math.toRadians(90))
-                    .lineTo(new Vector2d(20, 12))
-                    .splineToLinearHeading(new Pose2d(43 ,42, Math.toRadians(180)), Math.toRadians(90))
+                    .lineTo(new Vector2d(20, 10))
+                    .splineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)), Math.toRadians(90))
 
 
                     .build();
 
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
+
+
                     .waitSeconds(0.5)
-                    .back(10)
-                    .forward(7)
+                    .back(11)
+                    .forward(12)
                     .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,10, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .lineToLinearHeading(new Pose2d(47 ,10, Math.toRadians(180)))
                     .back(10)
                     .build();
+
 
 
 
@@ -184,7 +187,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             waitForStart();
 
-            switch(PropHSVPipelineRed.getLocation()) {
+            switch(PropHSVPipelineBlue.getLocation()) {
 
                 case LEFT:
 
