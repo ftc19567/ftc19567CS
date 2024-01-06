@@ -48,7 +48,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
             camera = OpenCvCameraFactory.getInstance()
                     .createWebcam(webcam1, cameraMonitorViewId);
 
-            PropHSVPipelineBlue pipeline = new PropHSVPipelineBlue(telemetry);
+            PropHSVPipelineRed pipeline = new PropHSVPipelineRed(telemetry);
 
             camera.setPipeline(pipeline);
             camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {

@@ -98,10 +98,10 @@ public class PropHSVPipelineRed extends OpenCvPipeline {
         telemetry.addData("Right percentage: ", rightPercent + "%");
 
 
-        if (rightPercent > middlePercent) {
+        if (rightPercent > middlePercent && rightPercent > 2) {
             location = Location.RIGHT;
             telemetry.addData("Side: ", "Right");
-        } else if (middlePercent > rightPercent) {
+        } else if (middlePercent > rightPercent && middlePercent > 2) {
             location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
         } else {
