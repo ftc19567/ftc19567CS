@@ -74,7 +74,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(-90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-28, Math.toRadians(-180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-29.5, Math.toRadians(-180)), Math.toRadians(-90))
 
                     .build();
 
