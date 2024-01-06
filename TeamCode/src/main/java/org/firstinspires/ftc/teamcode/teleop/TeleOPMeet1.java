@@ -254,6 +254,7 @@ public class TeleOPMeet1 extends OpMode {
          */
 
         //RESET ARM ENCODER
+        /*
         if (gamepad1.y && !reset) {
             lowMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             highMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -261,6 +262,8 @@ public class TeleOPMeet1 extends OpMode {
         } else if (!gamepad1.y) {
             reset = false;
         }
+        */
+
 /*
         if (gamepad1.a && !armUp) {
             turnServo.setPosition(1);
