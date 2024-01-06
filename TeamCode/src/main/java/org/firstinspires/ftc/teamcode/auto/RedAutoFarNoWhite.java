@@ -74,7 +74,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(-90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-27, Math.toRadians(-180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-28, Math.toRadians(-180)), Math.toRadians(-90))
 
                     .build();
 
@@ -101,7 +101,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-53, -8.5, Math.toRadians(-180)))
                     //.waitSeconds(6)
                     .lineToLinearHeading(new Pose2d(40, -8.5, Math.toRadians(-180)))
-                    .lineToLinearHeading(new Pose2d(40, -33, Math.toRadians(-180)))
+                    .lineToLinearHeading(new Pose2d(40, -34.5, Math.toRadians(-180)))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
@@ -132,7 +132,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
                     .turn(Math.toRadians(-90))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-38, Math.toRadians(-180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-41, Math.toRadians(-180)), Math.toRadians(-90))
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
@@ -168,7 +168,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
 
                 case LEFT:
 
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
 
                     drive.followTrajectorySequence(leftTraj);
 
@@ -196,7 +196,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
 
                 case MIDDLE:
 
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
 
                     drive.followTrajectorySequence(middleTraj);
 
@@ -222,7 +222,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     break;
 
                 case RIGHT:
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(rightTraj);
 
                     turnServo.setPosition(1);
