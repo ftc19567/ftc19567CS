@@ -104,7 +104,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     .build();
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                    .waitSeconds(1)
+                    .waitSeconds(1.2)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
@@ -123,7 +123,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                    .waitSeconds(1)
+                    .waitSeconds(1.2)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
@@ -142,7 +142,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
-                    .waitSeconds(1)
+                    .waitSeconds(1.2)
                     .back(10)
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)

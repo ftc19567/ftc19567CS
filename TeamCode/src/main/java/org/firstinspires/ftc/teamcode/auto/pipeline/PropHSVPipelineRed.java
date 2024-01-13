@@ -40,9 +40,9 @@ public class PropHSVPipelineRed extends OpenCvPipeline {
 
 
     //lower hsv values to detect the color. Values can be modified and tuned as necessary.
-    Scalar lowHSVRed = new Scalar (0.0, 53.8, 0.0);
+    Scalar lowHSVRed = new Scalar (0.0, 92.1, 63.8);
     // same here. Values can be tuned using eocv sim in valueFinder
-    Scalar highHSVRed = new Scalar (58.1, 255, 255);
+    Scalar highHSVRed = new Scalar (225, 255, 255);
 
 
     //Defining colors for the ROI, thhis is just design.
@@ -98,10 +98,10 @@ public class PropHSVPipelineRed extends OpenCvPipeline {
         telemetry.addData("Right percentage: ", rightPercent + "%");
 
 
-        if (rightPercent > middlePercent && rightPercent >= 2) {
+        if (rightPercent > middlePercent && rightPercent > 8) {
             location = Location.RIGHT;
             telemetry.addData("Side: ", "Right");
-        } else if (middlePercent > rightPercent && middlePercent >= 2) {
+        } else if (middlePercent > rightPercent && middlePercent > 8) {
             location = Location.MIDDLE;
             telemetry.addData("Side: ", "Middle");
         } else {

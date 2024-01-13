@@ -90,7 +90,7 @@ public class BlueAllianceClose extends LinearOpMode {
         //park
 
         TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                .waitSeconds(0.5)
+                .waitSeconds(1.2)
                 .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)
@@ -100,7 +100,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                .waitSeconds(0.5)
+                .waitSeconds(1.2)
                 .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)
@@ -110,7 +110,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 .build();
 
         TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
-                .waitSeconds(0.5)
+                .waitSeconds(1.2)
                 .back(13)
                 .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .forward(11)

@@ -51,6 +51,10 @@ public class TeleOPMeet1 extends OpMode {
 
     private double powerMult = 1;
 
+    public double servoUpPos = 0.15;
+
+    public double armUpP
+
 
 
     ElapsedTime timerUp = new ElapsedTime();
