@@ -29,6 +29,10 @@ public class RedAutoFarNoWhite extends LinearOpMode {
         OpenCvCamera camera;
         WebcamName webcam1;
 
+        public double servoUpPos = 0.12;
+
+        public int armUpPos = 1872;
+
 
         @Override
         public void runOpMode() throws InterruptedException {
@@ -184,19 +188,18 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(leftTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(leftTraj1);
@@ -212,19 +215,18 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(middleTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(middleTraj1);
@@ -237,19 +239,18 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(rightTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(rightTraj1);

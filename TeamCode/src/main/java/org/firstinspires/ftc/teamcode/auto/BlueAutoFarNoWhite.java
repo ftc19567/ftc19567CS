@@ -30,6 +30,10 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
         OpenCvCamera camera;
         WebcamName webcam1;
 
+        public double servoUpPos = 0.12;
+
+        public  int armUpPos = 1872;
+
 
         @Override
         public void runOpMode() throws InterruptedException {
@@ -90,7 +94,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .forward(7)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,12, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,8.5, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -108,17 +112,17 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-53, 35, Math.toRadians(180)))
                     .lineToLinearHeading(new Pose2d(-53, 8.5, Math.toRadians(180)))
                     //.waitSeconds(6)
-                    .lineToLinearHeading(new Pose2d(40, 8.5, Math.toRadians(180)))
-                    .lineToLinearHeading(new Pose2d(40, 33, Math.toRadians(180)))
+                    .lineTo(new Vector2d(20, 12))
+                    .splineToLinearHeading(new Pose2d(43 ,33.2, Math.toRadians(180)), Math.toRadians(90))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                     .waitSeconds(1.2)
-                    .back(13)
+                    .back(10)
                     .forward(12)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,12, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,8.5, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -139,7 +143,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(20, 12))
-                    .splineToLinearHeading(new Pose2d(43 ,27, Math.toRadians(180)), Math.toRadians(90))
+                    .splineToLinearHeading(new Pose2d(43 ,25.5, Math.toRadians(180)), Math.toRadians(90))
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
@@ -148,7 +152,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .forward(9)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,12, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,8.5, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -206,19 +210,18 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(leftTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(leftTraj1);
@@ -234,19 +237,18 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(middleTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(middleTraj1);
@@ -259,19 +261,18 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(rightTraj);
 
                     turnServo.setPosition(1);
-
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    arm.setPosition(0.6, 1867);
+                    arm.setPosition(0.6, armUpPos);
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    turnServo.setPosition(0.15);
+                    turnServo.setPosition(servoUpPos);
 
 
                     drive.followTrajectorySequence(rightTraj1);

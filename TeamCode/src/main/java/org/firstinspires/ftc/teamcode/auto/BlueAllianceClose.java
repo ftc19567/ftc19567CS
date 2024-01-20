@@ -28,6 +28,10 @@ public class BlueAllianceClose extends LinearOpMode {
     OpenCvCamera camera;
     WebcamName webcam1;
 
+    public double servoUpPos = 0.12;
+
+    public int armUpPos = 1872;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -161,13 +165,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1860);
+                arm.setPosition(0.6, armUpPos);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.18);
+                turnServo.setPosition(servoUpPos);
 
                 drive.followTrajectorySequence(leftTraj1);
 
@@ -189,13 +193,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1860);
+                arm.setPosition(0.6, armUpPos);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.18);
+                turnServo.setPosition(servoUpPos);
 
                 drive.followTrajectorySequence(middleTraj1);
 
@@ -213,13 +217,13 @@ public class BlueAllianceClose extends LinearOpMode {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                arm.setPosition(0.6, 1860);
+                arm.setPosition(0.6, armUpPos);
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                turnServo.setPosition(0.18);
+                turnServo.setPosition(servoUpPos);
 
                 drive.followTrajectorySequence(rightTraj1);
 
