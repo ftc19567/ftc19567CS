@@ -67,71 +67,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                 }
             });
 
-            //left
-
-            TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                    .waitSeconds(5)
-
-
-                    .lineToLinearHeading(new Pose2d (-47, -36, Math.toRadians(-90)))
-                    .forward(20)
-                    .strafeLeft(10)
-                    .lineToLinearHeading(new Pose2d (-35, -47, Math.toRadians(-90)))
-                    .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
-                    .turn(Math.toRadians(-90))
-                    //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
-                    .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-29.5, Math.toRadians(-180)), Math.toRadians(-90))
-
-                    .build();
-
-
-            TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
-                    .waitSeconds(1.2)
-                    .back(10)
-                    .forward(9)
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-12, Math.toRadians(-180)))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                    .back(10)
-                    .build();
-
-
-
-
-            //middle
-            TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                    .waitSeconds(5)
-
-
-
-                    .lineToLinearHeading(new Pose2d (-35.5, -32, Math.toRadians(-90)))
-                    .back(-5)
-                    .lineToLinearHeading(new Pose2d(-53, -35, Math.toRadians(-180)))
-                    .lineToLinearHeading(new Pose2d(-53, -8.5, Math.toRadians(-180)))
-                    //.waitSeconds(6)
-                    .lineToLinearHeading(new Pose2d(40, -8.5, Math.toRadians(-180)))
-                    .lineToLinearHeading(new Pose2d(40, -34.5, Math.toRadians(-180)))
-                    .build();
-
-            TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
-                    .waitSeconds(1.2)
-                    .back(13)
-                    .forward(12)
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-12, Math.toRadians(-180)))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
-                    .back(10)
-                    .build();
-
-
-
             //right
-
-
-
 
             TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
                     .waitSeconds(5)
@@ -145,8 +81,11 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
                     .turn(Math.toRadians(-90))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-42.3, Math.toRadians(-180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-41, Math.toRadians(180)), Math.toRadians(-90))
+
+
                     .build();
+
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.2)
@@ -154,7 +93,64 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .forward(7)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-12, Math.toRadians(-180)))
+                    .lineToLinearHeading(new Pose2d(47 ,-8.5, Math.toRadians(180)))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .back(10)
+                    .build();
+
+
+
+
+            //middle
+            TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                    .waitSeconds(4)
+                    .lineToLinearHeading(new Pose2d (-35.5, -32, Math.toRadians(-90)))
+                    .back(-5)
+                    .lineToLinearHeading(new Pose2d(-53, -35, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d(-53, -8.5, Math.toRadians(-90)))
+                    .turn(Math.toRadians(-90))
+                    //.waitSeconds(6)
+                    .lineTo(new Vector2d(20, -8.5))
+                    .splineToLinearHeading(new Pose2d(43 ,-38.9, Math.toRadians(180)), Math.toRadians(-90))
+                    .build();
+
+            TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
+                    .waitSeconds(1.2)
+                    .back(10)
+                    .forward(12)
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
+                    .lineToLinearHeading(new Pose2d(47 ,-9, Math.toRadians(180)))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .back(10)
+                    .build();
+
+
+
+            //right
+
+            TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                    .waitSeconds(5)
+
+
+                    .lineToLinearHeading(new Pose2d (-47, -36, Math.toRadians(-90)))
+                    .forward(20)
+                    .strafeRight(-10)
+                    .lineToLinearHeading(new Pose2d (-35, -47, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
+                    .turn(Math.toRadians(-90))
+                    //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
+                    .lineTo(new Vector2d(20, -12))
+                    .splineToLinearHeading(new Pose2d(43 ,-28.4, Math.toRadians(180)), Math.toRadians(-90))
+                    .build();
+
+            TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
+                    .waitSeconds(1.2)
+                    .back(10)
+                    .forward(9)
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
+                    .lineToLinearHeading(new Pose2d(47 ,-8.5, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -187,7 +183,8 @@ public class RedAutoFarNoWhite extends LinearOpMode {
 
                     drive.followTrajectorySequence(leftTraj);
 
-                    turnServo.setPosition(1);
+                    //USED TO BE 1
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -214,7 +211,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
 
                     drive.followTrajectorySequence(middleTraj);
 
-                    turnServo.setPosition(1);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -238,7 +235,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(rightTraj);
 
-                    turnServo.setPosition(1);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
