@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineRed;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
@@ -30,9 +31,9 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
         OpenCvCamera camera;
         WebcamName webcam1;
 
-        public double servoUpPos = 0.12;
+        public double servoUpPos =.1;
 
-        public  int armUpPos = 1872;
+        public  int armUpPos = 1870;
 
 
         @Override
@@ -68,6 +69,8 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                 }
             });
 
+
+
             //left
 
             TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
@@ -82,7 +85,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, 12, Math.toRadians(90)))
                     .turn(Math.toRadians(90))
                     .lineTo(new Vector2d(20, 12))
-                    .splineToLinearHeading(new Pose2d(43 ,38.5, Math.toRadians(180)), Math.toRadians(90))
+                    .splineToLinearHeading(new Pose2d(43 ,40, Math.toRadians(180)), Math.toRadians(90))
 
 
                     .build();
@@ -90,7 +93,11 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                     .waitSeconds(1.2)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .forward(7)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
@@ -104,7 +111,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             //middle
             TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                    .waitSeconds(4)
+                    .waitSeconds(5)
                     .lineToLinearHeading(new Pose2d (-35.5, 32, Math.toRadians(90)))
                     .back(-5)
                     .lineToLinearHeading(new Pose2d(-53, 35, Math.toRadians(90)))
@@ -117,7 +124,11 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                     .waitSeconds(1.2)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .forward(12)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
@@ -147,7 +158,11 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.2)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .forward(9)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
@@ -208,7 +223,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
                     drive.followTrajectorySequence(leftTraj);
 //USED TO BE 1
-                    turnServo.setPosition(.85);
+                    turnServo.setPosition(85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {

@@ -374,11 +374,14 @@ public class TeleOPMeet1 extends OpMode {
 
 
         //airplane
-        if (gamepad1.a && !plane) {
+        if (gamepad1.dpad_up && !plane) {
             planeServo.setPosition(0.5);
             plane = true;
-        } else if (!gamepad1.a){
+        } else if (!gamepad1.dpad_up){
             plane = false;
+        }
+        if (gamepad1.left_trigger > 0) {
+            gamepad1.rumble(100);
         }
 
 
@@ -427,7 +430,6 @@ public class TeleOPMeet1 extends OpMode {
         } else if (!gamepad1.b) {
             hang = false;
         }
-
 
 
 

@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineRed;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
@@ -128,7 +129,11 @@ public class RedCloseNoWhite extends LinearOpMode {
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                     .waitSeconds(1.2)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
@@ -147,7 +152,11 @@ public class RedCloseNoWhite extends LinearOpMode {
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.2)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
@@ -176,7 +185,11 @@ public class RedCloseNoWhite extends LinearOpMode {
 
             TrajectorySequence rightTraj2 = drive.trajectorySequenceBuilder(rightTraj1.end())
                     .waitSeconds(0.5)
-                    .back(10)
+                    .back(
+                            10,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .forward(10)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
@@ -210,7 +223,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(leftTraj);
 
 
-                    turnServo.setPosition(1);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -238,7 +251,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(middleTraj);
 
 
-                    turnServo.setPosition(1);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -263,7 +276,7 @@ public class RedCloseNoWhite extends LinearOpMode {
                     drive.followTrajectorySequence(rightTraj);
 
 
-                    turnServo.setPosition(1);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {

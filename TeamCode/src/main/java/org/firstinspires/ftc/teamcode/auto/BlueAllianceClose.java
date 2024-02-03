@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
 import org.firstinspires.ftc.teamcode.mechanisms.Intake;
@@ -87,40 +88,58 @@ public class BlueAllianceClose extends LinearOpMode {
         TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineTo(new Vector2d(14, 34))
                 .turn(Math.toRadians(-70))
-                .forward(-7)
-                .splineToLinearHeading(new Pose2d(40, 30, Math.toRadians(180)), Math.toRadians(0))
+                .forward(-8)
+                .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
                 .build();
 
         //park
 
         TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                 .waitSeconds(1.2)
-                .back(13)
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .back(
+                        13,
+                        SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                )
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 700))
+                .UNSTABLE_addTemporalMarkerOffset(0.9, () -> turnServo.setPosition(1))
                 .forward(11)
-                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .strafeTo(new Vector2d(46, 60))
                 //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .back(15)
                 .build();
 
         TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                 .waitSeconds(1.2)
-                .back(13)
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .back(
+                        13,
+                        SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                )
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 700))
+                .UNSTABLE_addTemporalMarkerOffset(0.9, () -> turnServo.setPosition(1))
                 .forward(11)
-                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .strafeTo(new Vector2d(46, 60))
                 //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .back(15)
                 .build();
 
         TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                 .waitSeconds(1.2)
-                .back(13)
-                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                .back(
+                        13,
+                        SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                )
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 700))
+                .UNSTABLE_addTemporalMarkerOffset(0.9, () -> turnServo.setPosition(1))
                 .forward(11)
-                .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(1))
+                .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                 .strafeTo(new Vector2d(46, 60))
                 //.splineToLinearHeading(new Pose2d(60, 60, Math.toRadians(180)), Math.toRadians(0))
+                .back(15)
                 .build();
 
         //fulls to test
@@ -159,7 +178,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 drive.followTrajectorySequence(leftTraj);
 
 
-                turnServo.setPosition(1);
+                turnServo.setPosition(.85);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -187,7 +206,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 drive.followTrajectorySequence(middleTraj);
 
 
-                turnServo.setPosition(1);
+                turnServo.setPosition(.85);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -211,7 +230,7 @@ public class BlueAllianceClose extends LinearOpMode {
                 drive.followTrajectorySequence(rightTraj);
 
 
-                turnServo.setPosition(1);
+                turnServo.setPosition(.85);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
