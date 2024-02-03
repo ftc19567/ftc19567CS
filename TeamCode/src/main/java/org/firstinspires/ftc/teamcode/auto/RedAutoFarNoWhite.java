@@ -82,7 +82,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
                     .turn(Math.toRadians(-90))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-41, Math.toRadians(180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-42.5, Math.toRadians(180)), Math.toRadians(-90))
 
 
                     .build();
@@ -98,7 +98,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .forward(7)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-8.5, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,-10, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -115,7 +115,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-53, -8.5, Math.toRadians(-90)))
                     .turn(Math.toRadians(-90))
                     //.waitSeconds(6)
-                    .lineTo(new Vector2d(20, -8.5))
+                    .lineTo(new Vector2d(15, -8.5))
                     .splineToLinearHeading(new Pose2d(43 ,-38.9, Math.toRadians(180)), Math.toRadians(-90))
                     .build();
 
@@ -129,7 +129,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .forward(12)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-9, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,-12, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
@@ -150,7 +150,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(-90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(20, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-28.4, Math.toRadians(180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-30, Math.toRadians(180)), Math.toRadians(-90))
                     .build();
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
@@ -163,7 +163,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .forward(9)
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
-                    .lineToLinearHeading(new Pose2d(47 ,-8.5, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(47 ,-10, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();

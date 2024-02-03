@@ -85,7 +85,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, 12, Math.toRadians(90)))
                     .turn(Math.toRadians(90))
                     .lineTo(new Vector2d(20, 12))
-                    .splineToLinearHeading(new Pose2d(43 ,40, Math.toRadians(180)), Math.toRadians(90))
+                    .splineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)), Math.toRadians(90))
 
 
                     .build();
@@ -119,7 +119,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(90))
                     //.waitSeconds(6)
                     .lineTo(new Vector2d(20, 8.5))
-                    .splineToLinearHeading(new Pose2d(43 ,33.5, Math.toRadians(180)), Math.toRadians(90))
+                    .splineToLinearHeading(new Pose2d(43 ,33, Math.toRadians(180)), Math.toRadians(90))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
@@ -153,7 +153,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(20, 12))
-                    .splineToLinearHeading(new Pose2d(43 ,27, Math.toRadians(180)), Math.toRadians(90))
+                    .splineToLinearHeading(new Pose2d(43 ,29, Math.toRadians(180)), Math.toRadians(90))
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
