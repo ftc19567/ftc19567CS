@@ -26,6 +26,8 @@ public class TeleOPMeet1 extends OpMode {
     private DcMotor backRightMotor;
     public Servo turnServo;
     public Servo planeServo;
+    public Servo intakeServo;
+
     public Arm arm;
     private DcMotor lowMotor, highMotor;
     private Intake intake;
@@ -38,6 +40,10 @@ public class TeleOPMeet1 extends OpMode {
     private boolean hanging = false;
     private boolean hang = false;
     private boolean release = false;
+
+    private boolean active1 = false;
+
+    private boolean active2 = false;
 
     private boolean autoTurnServo = true;
 
@@ -121,9 +127,13 @@ public class TeleOPMeet1 extends OpMode {
         planeServo = hardwareMap.get(Servo.class, "planeServo");
         planeServo.setPosition(1);
 
+        //ACTIVE INTAKE
+        intakeServo = hardwareMap.get(Servo.class, "intakeServo");
+        intakeServo.setPosition(1);
+
+
+
         telemetry.update();
-
-
 
     }
     // Declare our motors
@@ -433,11 +443,27 @@ public class TeleOPMeet1 extends OpMode {
 
 
 
+        if (gamepad1.dpad_right && !active1) {
+            intakeServo.setPosition(intakeServo.getPosition() + 0.002);
+            active1 = true;
+        } else if (!gamepad1.dpad_right) {
+            active1 = false;
+        }
+
+        if (gamepad1.dpad_left && !active2) {
+            intakeServo.setPosition(intakeServo.getPosition() - 0.002);
+            active2 = true;
+        } else if (!gamepad1.dpad_left) {
+            active2 = false;
+        }
+
+
         telemetry.addData("ServoPos : ", turnServo.getPosition());
         telemetry.addData("ArmPos : ", lowMotor.getCurrentPosition());
         telemetry.addData("liftUpB : ", liftArmUp);
         telemetry.addData("liftDownB : ", liftArmDown);
         telemetry.addData("planeServo Pos : ", planeServo.getPosition());
+        telemetry.addData("Active Intake :", intakeServo.getPosition());
 
     }
 }

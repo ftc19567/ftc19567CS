@@ -17,16 +17,21 @@ public class MeepMeepTesting {
                 //Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
-                                        .turn(Math.toRadians(-48))
-                                        .forward(-10)
-                                        .back(-10)
-                                        .turn(Math.toRadians(48))
-                                        .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
-                                        .turn(Math.toRadians(-90))
-                                        .lineTo(new Vector2d(20, -12))
-                                        .splineToLinearHeading(new Pose2d(43 ,-41, Math.toRadians(180)), Math.toRadians(-90))
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+                                        .lineToLinearHeading(new Pose2d (-46.5, 33.5, Math.toRadians(90)))
+                                        .back(-5)
+                                        .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180))
+                                        )
+
+                                        .forward(2.5)
+
+                                        .lineToLinearHeading(new Pose2d(20, 35, Math.toRadians(180)))
+                                        .splineTo(new Vector2d(40, 28), Math.toRadians(0))
+
+                                        .back(10)
+                                        .forward(7)
+                                        //.UNSTABLE_addTemporalMarkerOffset(-0.9, () -> turnServo.setPosition(0.7))
+                                        .lineToLinearHeading(new Pose2d(43, 12, Math.toRadians(180)))
 
                                         .build()
                 );
