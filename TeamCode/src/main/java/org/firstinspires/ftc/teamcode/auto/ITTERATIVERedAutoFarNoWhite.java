@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineRed;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -21,8 +20,8 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="RedAutoFarNOWHITE")
-public class RedAutoFarNoWhite extends LinearOpMode {
+@Autonomous(name="ITTERATIVERedAutoFarNOWHITE")
+public class ITTERATIVERedAutoFarNoWhite extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
         private Intake intake;
@@ -30,9 +29,9 @@ public class RedAutoFarNoWhite extends LinearOpMode {
         OpenCvCamera camera;
         WebcamName webcam1;
 
-        public double servoUpPos = 0.149;
+        public double servoUpPos = 0.20;
 
-        public int armUpPos = 1889;
+        public int armUpPos = 1750;
 
 
         @Override
@@ -82,7 +81,7 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .lineToLinearHeading(new Pose2d(-35, -12, Math.toRadians(-90)))
                     .turn(Math.toRadians(-90))
                     .lineTo(new Vector2d(15, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-42.5, Math.toRadians(180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-42.6, Math.toRadians(180)), Math.toRadians(-90))
 
 
                     .build();
@@ -91,8 +90,8 @@ public class RedAutoFarNoWhite extends LinearOpMode {
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.2)
                     .back(
-                            10,
-                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            9.2,
+                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
                     .forward(7)
@@ -122,8 +121,8 @@ public class RedAutoFarNoWhite extends LinearOpMode {
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                     .waitSeconds(1.2)
                     .back(
-                            10,
-                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            9.5,
+                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
                     .forward(12)
@@ -150,14 +149,14 @@ public class RedAutoFarNoWhite extends LinearOpMode {
                     .turn(Math.toRadians(-90))
                     //.splineToLinearHeading(new Pose2d(0 ,12, Math.toRadians(180)), Math.toRadians(180))
                     .lineTo(new Vector2d(15, -12))
-                    .splineToLinearHeading(new Pose2d(43 ,-30, Math.toRadians(180)), Math.toRadians(-90))
+                    .splineToLinearHeading(new Pose2d(43 ,-31, Math.toRadians(180)), Math.toRadians(-90))
                     .build();
 
             TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                     .waitSeconds(1.2)
                     .back(
-                            10,
-                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            10.7,
+                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
                     .forward(9)
