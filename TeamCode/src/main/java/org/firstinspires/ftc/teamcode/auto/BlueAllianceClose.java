@@ -87,7 +87,7 @@ public class BlueAllianceClose extends LinearOpMode {
         //right
         TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(9.5, 61.5, Math.toRadians(90)))
                 .lineTo(new Vector2d(14, 34))
-                .turn(Math.toRadians(-70))
+                .turn(Math.toRadians(-90))
                 .forward(-8)
                 .splineToLinearHeading(new Pose2d(40, 28, Math.toRadians(180)), Math.toRadians(0))
                 .build();

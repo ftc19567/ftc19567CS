@@ -108,38 +108,48 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
 
             //left
 
-            TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+            TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
                     .lineToLinearHeading(new Pose2d (-46.5, 33.5, Math.toRadians(90)))
-                    .back(-5)
+                    .back(-9)
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.8, () -> intakeServo.setPosition(.67))
                     .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180)),
                             SampleMecanumDrive.getVelocityConstraint(20, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                             )
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
-                    .forward(2.3)
-                    .UNSTABLE_addDisplacementMarkerOffset(-0.2, () -> intakeServo.setPosition(0.77))
-                    .lineToLinearHeading(new Pose2d(20, 35, Math.toRadians(180)))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(0))
-                    .splineTo(new Vector2d(40, 28), Math.toRadians(0))
+                    .forward(1.5)
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(.78))
+                    .waitSeconds(1)
+                    //can maybe remove
+                    .back(4.2)
+                    .turn(Math.toRadians(90))
+                    .lineToLinearHeading(new Pose2d(-55.3, 12, Math.toRadians(-90)))
+                    .turn(Math.toRadians(-90))
+                    .UNSTABLE_addTemporalMarkerOffset(-4, () -> intakeMotor.setPower(-0.6))
+                    .lineTo(new Vector2d(43, 12))
+                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
 
+                    .lineToLinearHeading(new Pose2d(43 ,29, Math.toRadians(180)))
                     .build();
 
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
-                    .waitSeconds(5)
+                    .waitSeconds(1.5)
                     .back(
-                            12,
-                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            15,
+                            SampleMecanumDrive.getVelocityConstraint(8, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
                     .forward(
                             7,
-                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
-                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> turnServo.setPosition(0.7))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
 
-                    .lineToLinearHeading(new Pose2d(43, 12, Math.toRadians(180)))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> arm.setPosition(1, 5))
+                    .lineToLinearHeading(new Pose2d(43 ,12, Math.toRadians(180)))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .back(10)
                     .build();
 
 
@@ -152,17 +162,19 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
                     .back(-5)
                     .turn(Math.toRadians(90))
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(0.78))
                     .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180)),
                             SampleMecanumDrive.getVelocityConstraint(40, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                             )
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
-                    .forward(2.3)
-                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(0.78))
-                    .lineTo(new Vector2d(20, 35))
-                    .UNSTABLE_addTemporalMarkerOffset(-3, () -> intakeMotor.setPower(-0.6))
-                    .splineTo(new Vector2d(40, 36), Math.toRadians(0))
-                    .UNSTABLE_addTemporalMarkerOffset(-3, () -> intakeMotor.setPower(0))
+                    .forward(1.5)
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(.767))
+                    .waitSeconds(1)
+                    //can maybe remove
+                    .lineTo(new Vector2d(40, 35))
+                    .UNSTABLE_addTemporalMarkerOffset(-4, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
@@ -184,6 +196,61 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
                     .back(10)
                     .build();
+
+//left
+            TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+                    .waitSeconds(5)
+
+
+                    .lineToLinearHeading(new Pose2d (-37, 42, Math.toRadians(90)))
+                    .turn(Math.toRadians(48))
+                    .forward(-10)
+                    .back(-10)
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(0.764))
+                    .lineToLinearHeading(new Pose2d(-40, 35, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180)),
+                            SampleMecanumDrive.getVelocityConstraint(40, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
+                    .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
+                    .forward(1.5)
+                    .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(.78))
+                    .waitSeconds(1)
+                    //can maybe remove
+                    .back(4.2)
+                    .turn(Math.toRadians(90))
+                    .lineToLinearHeading(new Pose2d(-55.3, 12, Math.toRadians(-90)))
+                    .turn(Math.toRadians(-90))
+                    .UNSTABLE_addTemporalMarkerOffset(-4, () -> intakeMotor.setPower(-0.6))
+                    .lineTo(new Vector2d(43, 12))
+                    .UNSTABLE_addTemporalMarkerOffset(1, () -> intakeMotor.setPower(0))
+                    .lineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)))
+
+
+
+                    .build();
+
+
+            TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
+                    .waitSeconds(1.5)
+                    .back(
+                            15,
+                            SampleMecanumDrive.getVelocityConstraint(8, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
+                    .forward(
+                            7,
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
+                    )
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> arm.setPosition(1, 700))
+
+                    .lineToLinearHeading(new Pose2d(43 ,12, Math.toRadians(180)))
+                    .UNSTABLE_addTemporalMarkerOffset(0, () -> arm.setPosition(1, 5))
+                    .back(10)
+                    .build();
+
 
 
 
@@ -219,9 +286,9 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
              */
 
 
-            turnServo.setPosition(1);
+            turnServo.setPosition(.67);
 
-            intakeServo.setPosition(0.76);
+            //intakeServo.setPosition(0.76);
 
 
 
@@ -240,9 +307,26 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
 
                 case LEFT:
 
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(-90)));
-                    telemetry.addData("fail? ", "fail");
+                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.followTrajectorySequence(leftTraj);
 
+                    turnServo.setPosition(1);
+
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    arm.setPosition(0.6, armUpPos);
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    turnServo.setPosition(servoUpPos);
+
+
+                    drive.followTrajectorySequence(leftTraj1);
 
 
                     break;
