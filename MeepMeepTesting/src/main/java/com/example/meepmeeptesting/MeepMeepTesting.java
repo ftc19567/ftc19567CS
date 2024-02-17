@@ -31,9 +31,7 @@ public class MeepMeepTesting {
 
 
                 .waitSeconds(1.2)
-                .back(
-                        10.7
-                )
+                .back(10.)
                 .forward(9)
 
                 .lineToLinearHeading(new Pose2d(47 ,-10, Math.toRadians(180)))

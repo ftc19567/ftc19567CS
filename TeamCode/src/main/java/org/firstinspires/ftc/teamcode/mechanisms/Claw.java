@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.mechanisms;
 //import static org.firstinspires.ftc.teamcode.util.UtilConstants.clawIntakePos;
 //import static org.firstinspires.ftc.teamcode.util.UtilConstants.clawOuttakePos;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+@Disabled
 public class Claw implements MechanismTemplate{
     Servo clawServo;
     public Claw(HardwareMap hardwareMap, Telemetry telemetry)

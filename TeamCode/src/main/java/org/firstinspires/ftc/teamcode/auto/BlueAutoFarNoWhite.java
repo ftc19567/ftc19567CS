@@ -223,7 +223,7 @@ public class BlueAutoFarNoWhite extends LinearOpMode {
 
                     drive.followTrajectorySequence(leftTraj);
 //USED TO BE 1
-                    turnServo.setPosition(85);
+                    turnServo.setPosition(.85);
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
