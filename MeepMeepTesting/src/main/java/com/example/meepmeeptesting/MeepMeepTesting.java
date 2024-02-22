@@ -17,28 +17,25 @@ public class MeepMeepTesting {
                 //Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                                        //.lineTo(new Vector2d(-37, 51))
-                                        .lineToLinearHeading(new Pose2d (-37, 42, Math.toRadians(90)))
-                                        .turn(Math.toRadians(48))
-                                        .forward(-10)
-                                        .lineToLinearHeading(new Pose2d(-58, 35.5, Math.toRadians(180)))
-                                        .forward(2.5)
-                                        .back(5)
-                                        .lineToLinearHeading(new Pose2d (-37, 60, Math.toRadians(180)))
-                                        .lineTo(new Vector2d(20, 60))
-                                        .splineTo(new Vector2d(45, 41), Math.toRadians(0))
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                                        .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
 
-                                        /*
                                         .turn(Math.toRadians(-48))
-                                        .lineToLinearHeading(new Pose2d(-35, 12, Math.toRadians(90)))
-                                        .turn(Math.toRadians(90))
-                                        .lineTo(new Vector2d(35, 12))
-                                        .splineTo(new Vector2d(45, 42.5), Math.toRadians(0))
 
-                                         */
-                                        //.splineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)), Math.toRadians(90))
-                                        //.lineToLinearHeading(new Pose2d(43 ,42.5, Math.toRadians(180)))
+                                        .forward(-10)
+                                        .lineToLinearHeading(new Pose2d(-58, -35.5, Math.toRadians(180)))
+
+                                        .forward(2.5)
+
+                                        .waitSeconds(1)
+                                        .back(5)
+                                        //.UNSTABLE_addDisplacementMarkerOffset(0, () -> intakeServo.setPosition(0.782))
+
+                                        .lineToLinearHeading(new Pose2d (-37, -60, Math.toRadians(180)))
+
+                                        .lineTo(new Vector2d(20, -60))
+
+                                        .splineTo(new Vector2d(41, -41.2), Math.toRadians(0))
 
 
 
