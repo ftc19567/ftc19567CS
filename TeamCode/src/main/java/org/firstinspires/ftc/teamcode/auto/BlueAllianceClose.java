@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="BlueAllianceCloseAutonomous")
+@Autonomous(name="BlueAllianceCloseAutonomous", group="CloseNoWhite")
 public class BlueAllianceClose extends LinearOpMode {
     private Servo turnServo;
     private Arm arm;
