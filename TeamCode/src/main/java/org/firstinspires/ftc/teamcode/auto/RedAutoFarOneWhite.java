@@ -97,7 +97,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
 
         //left
 
-        TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+        TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
                 .lineToLinearHeading(new Pose2d (-47, -36, Math.toRadians(-90)))
                 .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
                 .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
@@ -114,7 +114,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
                 .splineTo(new Vector2d(41, -28.5), Math.toRadians(0))
                 .build();
 
-        TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
+        TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
                 .waitSeconds(1.5)
                 .back(
                         15,
@@ -184,7 +184,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
                 .build();
 
 //left
-        TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+        TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
 
                 .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
                 .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
@@ -207,7 +207,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
                 .build();
 
 
-        TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(leftTraj.end())
+        TrajectorySequence leftTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                 .waitSeconds(1.5)
 
                 .back(

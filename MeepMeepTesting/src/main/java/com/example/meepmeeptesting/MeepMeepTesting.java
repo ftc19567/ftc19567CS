@@ -17,43 +17,25 @@ public class MeepMeepTesting {
                 //Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                                        .lineToLinearHeading(new Pose2d (-47, 36, Math.toRadians(90)))
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                                        .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
 
-                                        .lineToLinearHeading(new Pose2d (-35.5, 46, Math.toRadians(90)))
-                                        .lineToLinearHeading(new Pose2d(-35, 11.4, Math.toRadians(90)))
-                                        .turn(Math.toRadians(90))
+                                        .turn(Math.toRadians(-48))
 
-                                        //intakepixels
-                                        .lineTo(new Vector2d(-58, 11.4))
-
+                                        .forward(-10)
+                                        .lineToLinearHeading(new Pose2d(-58, -35.5, Math.toRadians(180)))
 
                                         .forward(2.5)
 
-                                        .lineTo(new Vector2d(10, 11.4))
-
-                                        //board dropoff
-                                        .splineTo(new Vector2d(48, 28.5), Math.toRadians(0))
-
+                                        .waitSeconds(1)
                                         .back(5)
+                                        //.UNSTABLE_addDisplacementMarkerOffset(0, () -> intakeServo.setPosition(0.782))
 
-                                        .waitSeconds(0.1)
+                                        .lineToLinearHeading(new Pose2d (-37, -60, Math.toRadians(180)))
 
-                                        //moving to extra pixels
-                                        .splineTo(new Vector2d(23, 58), Math.toRadians(180))
-                                        .lineTo(new Vector2d(-33, 58))
-                                        .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
+                                        .lineTo(new Vector2d(20, -60))
 
-                                        //gettting pixels
-                                        .forward(4.5)
-
-                                        //moving to board
-                                        .lineTo(new Vector2d(-58, 35.3))
-                                        .splineTo(new Vector2d(-33, 58), Math.toRadians(0))
-                                        .lineTo(new Vector2d(23, 58))
-                                        .splineTo(new Vector2d(48, 30.5), Math.toRadians(0))
-                                        .back(5)
-                                        .forward(5)
+                                        .splineTo(new Vector2d(41, -41.2), Math.toRadians(0))
 
 
 

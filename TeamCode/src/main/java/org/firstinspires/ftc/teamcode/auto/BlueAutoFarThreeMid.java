@@ -381,10 +381,6 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
                     drive.followTrajectorySequence(rightTraj);
 
-                    armUpLow();
-
-                    drive.followTrajectorySequence(rightTraj1);
-
                     break;
             }
             camera.stopStreaming();
