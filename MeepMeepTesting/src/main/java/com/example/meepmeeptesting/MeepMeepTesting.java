@@ -17,25 +17,34 @@ public class MeepMeepTesting {
                 //Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(63.1044330668311, 40, 6.891847157693078, 4.141592653589793, 12.86)
                 .followTrajectorySequence(drive ->
-                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
-                                        .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
+                                drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+                                        .lineToLinearHeading(new Pose2d (-37, 42, Math.toRadians(90)))
 
-                                        .turn(Math.toRadians(-48))
+                                        .turn(Math.toRadians(48))
 
                                         .forward(-10)
-                                        .lineToLinearHeading(new Pose2d(-58, -35.5, Math.toRadians(180)))
+                                        .lineToLinearHeading(new Pose2d(-58, 35.5, Math.toRadians(180)))
 
                                         .forward(2.5)
 
                                         .waitSeconds(1)
                                         .back(5)
-                                        //.UNSTABLE_addDisplacementMarkerOffset(0, () -> intakeServo.setPosition(0.782))
+                                        //.UNSTABLE_addTemporalMarkerOffset(0, () -> intakeServo.setPosition(0.782))
 
-                                        .lineToLinearHeading(new Pose2d (-37, -60, Math.toRadians(180)))
+                                        .lineToLinearHeading(new Pose2d (-37, 60, Math.toRadians(180)))
 
-                                        .lineTo(new Vector2d(20, -60))
+                                        .lineTo(new Vector2d(20, 60))
 
-                                        .splineTo(new Vector2d(41, -41.2), Math.toRadians(0))
+                                        .splineTo(new Vector2d(48, 41.2), Math.toRadians(0))
+
+                                        .back(5)
+
+                                        .waitSeconds(0.1)
+
+                                        .splineTo(new Vector2d(23, 58), Math.toRadians(180))
+
+                                        .lineTo(new Vector2d(-33, 58))
+                                        .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
 
 
 
