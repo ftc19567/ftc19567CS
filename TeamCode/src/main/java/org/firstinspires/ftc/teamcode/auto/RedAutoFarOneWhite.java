@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="RedAutonFarONEWHITE", group="OneWhite")
+@Autonomous(name="RedAutonFarONEWHITE", group="OneWhiteUNTESTED")
 public class RedAutoFarOneWhite extends LinearOpMode {
     private Servo turnServo;
     private Arm arm;
@@ -243,7 +243,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
 
             case LEFT:
 
-                drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                 drive.followTrajectorySequence(leftTraj);
 
                 armUP();
@@ -256,7 +256,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
 
             case MIDDLE:
 
-                drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                 drive.followTrajectorySequence(middleTraj);
 
                 armUP();
@@ -267,7 +267,7 @@ public class RedAutoFarOneWhite extends LinearOpMode {
                 break;
 
             case RIGHT:
-                drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                 drive.followTrajectorySequence(rightTraj);
 
                 armUP();

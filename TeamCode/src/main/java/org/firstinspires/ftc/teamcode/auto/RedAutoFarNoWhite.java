@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="RedAutoFarNOWHITE")
+@Autonomous(name="RedAutoFarNOWHITE", group="NoWhiteSTRAFEISSUE")
 public class RedAutoFarNoWhite extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;

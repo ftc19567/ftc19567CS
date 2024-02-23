@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineBlue;
+import org.firstinspires.ftc.teamcode.auto.pipeline.PropHSVPipelineRed;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Arm;
@@ -20,8 +21,8 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="BlueAutonFarThreeWHITE", group="MiddleWhiteUNTESTED")
-public class BlueAutoFarThreeMid extends LinearOpMode {
+@Autonomous(name="RedAutonFarThreeWHITE", group="MiddleWhiteUNTESTED")
+public class RedAutoFarThreeMid extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
         private Intake intake;
@@ -78,7 +79,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
             camera = OpenCvCameraFactory.getInstance()
                     .createWebcam(webcam1, cameraMonitorViewId);
 
-            PropHSVPipelineBlue pipeline = new PropHSVPipelineBlue(telemetry);
+            PropHSVPipelineRed pipeline = new PropHSVPipelineRed(telemetry);
 
             camera.setPipeline(pipeline);
             camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -96,25 +97,25 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
             //left
 
-            TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                    .lineToLinearHeading(new Pose2d (-46, 33.5, Math.toRadians(90)))
+            TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (-46, -33.5, Math.toRadians(-90)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
-                    .lineToLinearHeading(new Pose2d (-35.5, 46, Math.toRadians(90)))
-                    .lineToLinearHeading(new Pose2d(-35, 11.4, Math.toRadians(90)))
-                    .turn(Math.toRadians(90))
+                    .lineToLinearHeading(new Pose2d (-35.5, -46, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d(-35, -11.4, Math.toRadians(-90)))
+                    .turn(Math.toRadians(-90))
                     //intakepixels
-                    .lineTo(new Vector2d(-58, 11.4))
+                    .lineTo(new Vector2d(-58, -11.4))
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
                     .forward(2.5)
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
-                    .lineTo(new Vector2d(10, 11.4))
+                    .lineTo(new Vector2d(10, -11.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(-0.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.2, () -> turnServo.setPosition(0.85))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
 
                     //board dropoff
-                    .splineTo(new Vector2d(48, 28.5), Math.toRadians(0))
+                    .splineTo(new Vector2d(48, -28.5), Math.toRadians(0))
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, armUpPosLow))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(servoUpPosLow))
 
@@ -125,12 +126,12 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .waitSeconds(0.1)
 
                     //moving to extra pixels
-                    .splineTo(new Vector2d(23, 58), Math.toRadians(180))
+                    .splineTo(new Vector2d(23, -58), Math.toRadians(-180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> Arm.setPosition(1, 5))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
-                    .lineTo(new Vector2d(-33, 58))
-                    .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
+                    .lineTo(new Vector2d(-33, -58))
+                    .splineTo(new Vector2d(-56, -35.3), Math.toRadians(-180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
 
 
@@ -141,13 +142,13 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
 
                     //moving to board
-                    .lineTo(new Vector2d(-58, 35.3))
+                    .lineTo(new Vector2d(-58, -35.3))
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
                     .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
-                    .splineTo(new Vector2d(-33, 58), Math.toRadians(0))
-                    .lineTo(new Vector2d(23, 58))
-                    .splineTo(new Vector2d(48, 30.5), Math.toRadians(0))
+                    .splineTo(new Vector2d(-33, -58), Math.toRadians(0))
+                    .lineTo(new Vector2d(23, -58))
+                    .splineTo(new Vector2d(48, -30.5), Math.toRadians(0))
 
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, 1750))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(0.24))
@@ -168,16 +169,16 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
 
             //middle
-            TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                    .lineToLinearHeading(new Pose2d (-35.5, 32.7, Math.toRadians(90)))
+            TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
+                    .lineToLinearHeading(new Pose2d (-35.5, -32.7, Math.toRadians(-90)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
                     .back(-5)
-                    .turn(Math.toRadians(90))
+                    .turn(Math.toRadians(-90))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
-                    .lineToLinearHeading(new Pose2d(-60.5, 35, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(-60.5, -35, Math.toRadians(-180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.7, () -> intakeMotor.setPower(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
-                    .lineTo(new Vector2d(48, 35))
+                    .lineTo(new Vector2d(48, -35))
 
                     //Arm Up
                     .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(-0.4))
@@ -190,9 +191,9 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .back(5,
                             SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
-                    .strafeLeft(7)
-                    .lineTo(new Vector2d(25, 35))
-                    .lineTo(new Vector2d(-60.5, 35))
+                    .strafeLeft(-7)
+                    .lineTo(new Vector2d(25, -35))
+                    .lineTo(new Vector2d(-60.5, -35))
 
                     //Arm Down
                     .UNSTABLE_addTemporalMarkerOffset(-2, () -> turnServo.setPosition(1))
@@ -203,7 +204,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.786))
-                    .lineTo(new Vector2d(48, 35))
+                    .lineTo(new Vector2d(48, -35))
 
                     //Arm Up
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
@@ -216,7 +217,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                             SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
-                    .lineTo(new Vector2d(-60.5, 35))
+                    .lineTo(new Vector2d(-60.5, -35))
 
                     //Arm Down
                     .UNSTABLE_addTemporalMarkerOffset(-2, () -> turnServo.setPosition(1))
@@ -228,7 +229,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.796))
-                    .lineTo(new Vector2d(48, 35))
+                    .lineTo(new Vector2d(48, -35))
 
                     //ARm Up
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
@@ -295,26 +296,26 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
              */
 
 //left
-            TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+            TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, -61.5, Math.toRadians(-90)))
 
-                    .lineToLinearHeading(new Pose2d (-37, 42, Math.toRadians(90)))
+                    .lineToLinearHeading(new Pose2d (-37, -42, Math.toRadians(-90)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
-                    .turn(Math.toRadians(48))
+                    .turn(Math.toRadians(-48))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
                     .forward(-10)
-                    .lineToLinearHeading(new Pose2d(-58, 35.5, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(-58, -35.5, Math.toRadians(-180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
                     .forward(2.5)
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
                     .back(5)
                     //.UNSTABLE_addTemporalMarkerOffset(0, () -> intakeServo.setPosition(0.782))
                     .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeMotor.setPower(-0.5))
-                    .lineToLinearHeading(new Pose2d (-37, 60, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d (-37, -60, Math.toRadians(-180)))
                     .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> turnServo.setPosition(0.86))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
-                    .lineTo(new Vector2d(20, 60))
+                    .lineTo(new Vector2d(20, -60))
 
-                    .splineTo(new Vector2d(48, 41.2), Math.toRadians(0))
+                    .splineTo(new Vector2d(48, -41.2), Math.toRadians(-0))
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, armUpPosLow))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(servoUpPosLow))
 
@@ -325,12 +326,12 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .waitSeconds(0.1)
 
                     //moving to extra pixels
-                    .splineTo(new Vector2d(23, 58), Math.toRadians(180))
+                    .splineTo(new Vector2d(23, -58), Math.toRadians(-180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> Arm.setPosition(1, 5))
                     .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
-                    .lineTo(new Vector2d(-33, 58))
-                    .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
+                    .lineTo(new Vector2d(-33, -58))
+                    .splineTo(new Vector2d(-56, -35.3), Math.toRadians(-180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
 
 
@@ -341,13 +342,13 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
 
                     //moving to board
-                    .lineTo(new Vector2d(-58, 35.3))
+                    .lineTo(new Vector2d(-58, -35.3))
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
                     .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
-                    .splineTo(new Vector2d(-33, 58), Math.toRadians(0))
-                    .lineTo(new Vector2d(23, 58))
-                    .splineTo(new Vector2d(48, 30.5), Math.toRadians(0))
+                    .splineTo(new Vector2d(-33, -58), Math.toRadians(-0))
+                    .lineTo(new Vector2d(23, -58))
+                    .splineTo(new Vector2d(48, -30.5), Math.toRadians(-0))
 
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, 1750))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(0.24))
@@ -377,7 +378,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
                 case LEFT:
 
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(leftTraj);
 
 
@@ -387,7 +388,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
                 case MIDDLE:
 
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(middleTraj);
 
                     //armUpLow();
@@ -398,7 +399,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     break;
 
                 case RIGHT:
-                    drive.setPoseEstimate(new Pose2d(-35.5, 61.5, Math.toRadians(90)));
+                    drive.setPoseEstimate(new Pose2d(-35.5, -61.5, Math.toRadians(-90)));
                     drive.followTrajectorySequence(rightTraj);
 
                     break;

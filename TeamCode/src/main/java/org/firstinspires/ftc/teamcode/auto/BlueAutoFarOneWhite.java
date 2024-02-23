@@ -21,7 +21,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="BlueAutonFarONEWHITE", group="OneWhite")
+@Autonomous(name="BlueAutonFarONEWHITE", group="OneWhiteUNTESTED")
 public class BlueAutoFarOneWhite extends LinearOpMode {
         private Servo turnServo;
         private Arm arm;
