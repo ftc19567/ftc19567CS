@@ -109,7 +109,7 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
                     .forward(2.5)
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
                     .lineTo(new Vector2d(10, 11.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(-0.6))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
                     .splineTo(new Vector2d(41, 28.5), Math.toRadians(0))
                     .build();

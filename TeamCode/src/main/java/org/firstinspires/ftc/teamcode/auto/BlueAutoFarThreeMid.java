@@ -37,7 +37,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
         public double intakeUpPos = 0.766;
 
-        public double intakeOnePixelPos = .781;
+        public double intakeOnePixelPos = .784;
 
 
 
@@ -110,11 +110,11 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
                     .lineTo(new Vector2d(10, 11.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(-0.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.2, () -> turnServo.setPosition(0.85))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.1, () -> turnServo.setPosition(0.85))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
 
                     //board dropoff
-                    .splineTo(new Vector2d(48, 28.5), Math.toRadians(0))
+                    .splineTo(new Vector2d(46, 28.5), Math.toRadians(0))
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, armUpPosLow))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(servoUpPosLow))
 
@@ -126,25 +126,25 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
                     //moving to extra pixels
                     .splineTo(new Vector2d(23, 58), Math.toRadians(180))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> Arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.1, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.1, () -> Arm.setPosition(1, 5))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> turnServo.setPosition(0.67))
                     .lineTo(new Vector2d(-33, 58))
-                    .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
+                    .splineTo(new Vector2d(-55.5, 35.3), Math.toRadians(180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
 
 
                     //gettting pixels YOU ARE HERE
                     .forward(4.5)
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.786))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.79))
 
 
                     //moving to board
                     .lineTo(new Vector2d(-58, 35.3))
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
                     .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(0))
                     .splineTo(new Vector2d(-33, 58), Math.toRadians(0))
                     .lineTo(new Vector2d(23, 58))
                     .splineTo(new Vector2d(48, 30.5), Math.toRadians(0))
@@ -157,11 +157,11 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 
                     .forward(5,
-                            SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> Arm.setPosition(0.8, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> turnServo.setPosition(0.67))
                     .build();
 
 
@@ -169,59 +169,63 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
             //middle
             TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                    .lineToLinearHeading(new Pose2d (-35.5, 32.7, Math.toRadians(90)))
+                    .lineToLinearHeading(new Pose2d (-33, 32.7, Math.toRadians(90)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
-                    .back(-5)
+                    .back(-7)
                     .turn(Math.toRadians(90))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
                     .lineToLinearHeading(new Pose2d(-60.5, 35, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.7, () -> intakeMotor.setPower(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
-                    .lineTo(new Vector2d(48, 35))
+                    .lineTo(new Vector2d(40, 35))
 
                     //Arm Up
-                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> intakeMotor.setPower(-0.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.4, () -> turnServo.setPosition(0.85))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, armUpPosLow))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(servoUpPosLow))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.3, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.2, () -> turnServo.setPosition(0.85))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> intakeMotor.setPower(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> Arm.setPosition(0.6, armUpPosLow))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> turnServo.setPosition(servoUpPosLow))
 
 
 
-                    .back(5,
-                            SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                    .back(13,
+                            SampleMecanumDrive.getVelocityConstraint(13, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
+                    .waitSeconds(0.1)
                     .strafeLeft(7)
                     .lineTo(new Vector2d(25, 35))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.4, () -> Arm.setPosition(1, 5))
                     .lineTo(new Vector2d(-60.5, 35))
 
                     //Arm Down
-                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> turnServo.setPosition(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> Arm.setPosition(1, 5))
+
+
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(0.67))
 
 
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
                     .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.786))
-                    .lineTo(new Vector2d(48, 35))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.79))
+                    .lineTo(new Vector2d(40, 35))
 
                     //Arm Up
-                    .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, 1750))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(0.24))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.3, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.2, () -> turnServo.setPosition(0.85))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> intakeMotor.setPower(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> Arm.setPosition(0.6, armUpPosLow))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> turnServo.setPosition(servoUpPosLow))
 
-                    .back(5,
-                            SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                    .back(13,
+                            SampleMecanumDrive.getVelocityConstraint(13, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
                     .lineTo(new Vector2d(-60.5, 35))
 
                     //Arm Down
-                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> turnServo.setPosition(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> Arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.5, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.4, () -> Arm.setPosition(1, 5))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.4, () -> turnServo.setPosition(0.67))
                     //
 
 
@@ -231,21 +235,23 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .lineTo(new Vector2d(48, 35))
 
                     //ARm Up
-                    .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, 1750))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(0.24))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.3, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.2, () -> turnServo.setPosition(0.85))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> intakeMotor.setPower(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-2, () -> Arm.setPosition(0.6, armUpPosLow))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> turnServo.setPosition(servoUpPosLow))
 
                     .back(5,
                             SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
-                    .forward(5)
+                    .forward(5,
+                            SampleMecanumDrive.getVelocityConstraint(6, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                     //Arm Down
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> Arm.setPosition(0.8, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.2, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.1, () -> Arm.setPosition(0.8, 5))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> turnServo.setPosition(0.67))
                     .build();
 
 /*
@@ -314,7 +320,7 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
                     .lineTo(new Vector2d(20, 60))
 
-                    .splineTo(new Vector2d(48, 41.2), Math.toRadians(0))
+                    .splineTo(new Vector2d(46, 41.2), Math.toRadians(0))
                     .UNSTABLE_addTemporalMarkerOffset(-1.3, () -> Arm.setPosition(0.6, armUpPosLow))
                     .UNSTABLE_addTemporalMarkerOffset(-0.6, () -> turnServo.setPosition(servoUpPosLow))
 
@@ -326,25 +332,25 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
 
                     //moving to extra pixels
                     .splineTo(new Vector2d(23, 58), Math.toRadians(180))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
-                    .UNSTABLE_addTemporalMarkerOffset(-1, () -> Arm.setPosition(1, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> turnServo.setPosition(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> Arm.setPosition(1, 5))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
                     .lineTo(new Vector2d(-33, 58))
-                    .splineTo(new Vector2d(-56, 35.3), Math.toRadians(180))
+                    .splineTo(new Vector2d(-55.5, 35.3), Math.toRadians(180))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeServo.setPosition(intakeUpPos))
 
 
                     //gettting pixels YOU ARE HERE
                     .forward(4.5)
-                    .UNSTABLE_addTemporalMarkerOffset(-0.5, () -> intakeMotor.setPower(1))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.8, () -> intakeMotor.setPower(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.2, () -> intakeServo.setPosition(0.786))
 
 
                     //moving to board
                     .lineTo(new Vector2d(-58, 35.3))
                     .UNSTABLE_addTemporalMarkerOffset(-1.9, () -> intakeMotor.setPower(-0.4))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.8, () -> turnServo.setPosition(0.85))
-                    .UNSTABLE_addTemporalMarkerOffset(-1.6, () -> intakeMotor.setPower(0))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.5, () -> turnServo.setPosition(0.85))
+                    .UNSTABLE_addTemporalMarkerOffset(-1.4, () -> intakeMotor.setPower(0))
                     .splineTo(new Vector2d(-33, 58), Math.toRadians(0))
                     .lineTo(new Vector2d(23, 58))
                     .splineTo(new Vector2d(48, 30.5), Math.toRadians(0))
@@ -357,11 +363,11 @@ public class BlueAutoFarThreeMid extends LinearOpMode {
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
 
                     .forward(5,
-                            SampleMecanumDrive.getVelocityConstraint(30, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> turnServo.setPosition(1))
                     .UNSTABLE_addTemporalMarkerOffset(-0.9, () -> Arm.setPosition(0.8, 5))
-                    .UNSTABLE_addTemporalMarkerOffset(0, () -> turnServo.setPosition(0.67))
+                    .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> turnServo.setPosition(0.67))
                     .build();
 
 
