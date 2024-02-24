@@ -129,7 +129,7 @@ public class TeleOPMeet1 extends OpMode {
 
         //ACTIVE INTAKE
         intakeServo = hardwareMap.get(Servo.class, "intakeServo");
-        intakeServo.setPosition(1);
+        intakeServo.setPosition(0.796);
 
 
 
