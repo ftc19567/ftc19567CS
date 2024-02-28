@@ -19,7 +19,6 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Disabled
 @Autonomous(name="RedCloseNoWhite")
 public class RedCloseNoWhite extends LinearOpMode {
         private Servo turnServo;
@@ -154,7 +153,7 @@ public class RedCloseNoWhite extends LinearOpMode {
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.2)
                     .back(
-                            10,
+                            8.5,
                             SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )

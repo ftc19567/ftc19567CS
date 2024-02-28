@@ -98,13 +98,15 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
             //left
 
             TrajectorySequence rightTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
+                    .waitSeconds(5)
                     .lineToLinearHeading(new Pose2d (-47, 36, Math.toRadians(90)))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
+                    .back(-5)
                     .lineToLinearHeading(new Pose2d (-35.5, 46, Math.toRadians(90)))
                     .lineToLinearHeading(new Pose2d(-35, 11.4, Math.toRadians(90)))
                     .turn(Math.toRadians(90))
-                    .lineTo(new Vector2d(-58, 11.4))
+                    .lineTo(new Vector2d(-57, 11.4))
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
                     .forward(2.5)
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
@@ -117,7 +119,7 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
             TrajectorySequence rightTraj1 = drive.trajectorySequenceBuilder(rightTraj.end())
                     .waitSeconds(1.5)
                     .back(
-                            15,
+                            10,
                             SampleMecanumDrive.getVelocityConstraint(8, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
@@ -139,13 +141,13 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
 
             //middle
             TrajectorySequence middleTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-                    //.waitSeconds(5)
+                    .waitSeconds(5)
                     .lineToLinearHeading(new Pose2d (-35.5, 32.7, Math.toRadians(90)))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
-                    .back(-5)
+                    .back(-7)
                     .turn(Math.toRadians(90))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
-                    .lineToLinearHeading(new Pose2d(-58, 35, Math.toRadians(180)),
+                    .lineToLinearHeading(new Pose2d(-57, 35, Math.toRadians(180)),
                             SampleMecanumDrive.getVelocityConstraint(40, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                             )
@@ -155,14 +157,14 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
                     .waitSeconds(1)
                     //can maybe remove
                     .lineTo(new Vector2d(40, 35))
-                    .UNSTABLE_addTemporalMarkerOffset(-4, () -> intakeMotor.setPower(-0.6))
+                    .UNSTABLE_addTemporalMarkerOffset(-2.7, () -> intakeMotor.setPower(-0.6))
                     .UNSTABLE_addTemporalMarkerOffset(-1, () -> intakeMotor.setPower(0))
                     .build();
 
             TrajectorySequence middleTraj1 = drive.trajectorySequenceBuilder(middleTraj.end())
                     .waitSeconds(1.5)
                     .back(
-                            13,
+                            10,
                             SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
@@ -186,13 +188,13 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
 
 //left
             TrajectorySequence leftTraj = drive.trajectorySequenceBuilder(new Pose2d(-35.5, 61.5, Math.toRadians(90)))
-
+                    .waitSeconds(5)
                     .lineToLinearHeading(new Pose2d (-37, 42, Math.toRadians(90)))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeUpPos))
                     .turn(Math.toRadians(48))
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> turnServo.setPosition(0.67))
                     .forward(-10)
-                    .lineToLinearHeading(new Pose2d(-58, 35.5, Math.toRadians(180)))
+                    .lineToLinearHeading(new Pose2d(-57, 35.5, Math.toRadians(180)))
                     .UNSTABLE_addTemporalMarkerOffset(-0.1, () -> intakeMotor.setPower(1))
                     .forward(2.5)
                     .UNSTABLE_addDisplacementMarkerOffset(-0.5, () -> intakeServo.setPosition(intakeOnePixelPos))
@@ -212,7 +214,7 @@ public class BlueAutoFarOneWhite extends LinearOpMode {
                     .waitSeconds(1.5)
 
                     .back(
-                            13,
+                            10,
                             SampleMecanumDrive.getVelocityConstraint(10, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             SampleMecanumDrive.getAccelerationConstraint(DriveConstants.MAX_ACCEL)
                     )
